@@ -1,3 +1,3 @@
 # willijm92-repo
 
-Files under version control for various projects of mine
+Various projects of mine for work, school, and fun.
