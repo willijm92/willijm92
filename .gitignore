@@ -51,5 +51,3 @@ Temporary Items
 *.lot
 *.fls
 
-### IPython Notebook ###
-.ipynb_checkpoints/
