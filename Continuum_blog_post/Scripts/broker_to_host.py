@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-
 import pika
 import time
 import argparse

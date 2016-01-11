@@ -10,17 +10,17 @@ TOOLS="pan,box_zoom,wheel_zoom,reset,resize,save,hover"
 
 output_server('FF_HF_T')
 
-# time_x = np.array([])
-# T_data = np.array([])
-# HF_data = np.array([])
+time_x = np.array([])
+T_data = np.array([])
+HF_data = np.array([])
 
 p1 = figure(title='FF Helmet - Ambient Temp', x_axis_label = 'Time (s)', y_axis_label = 'Temperature (°C)',
 	tools=TOOLS, plot_width=1000, plot_height=600)
-p1.line(time_x, T_data, color="#dd0022", line_width = 3, legend='Amb T')
+p1.line(time_x, T_data, color='red', line_width = 3, legend='Amb T')
 
 p2 = figure(title='FF Helmet - Heat Flux', x_axis_label = 'Time (s)', y_axis_label = 'Heat Flux (kW/m²)',
 	tools=TOOLS, plot_width=1000, plot_height=600)
-p2.line(time_x, HF_data, color="#0000dd", line_width = 3, line_dash = 'dashed', legend='Heat Flux')
+p2.line(time_x, HF_data, color='blue', line_width = 3, line_dash = 'dashed', legend='Heat Flux')
 
 p = vplot(p1, p2)
 
