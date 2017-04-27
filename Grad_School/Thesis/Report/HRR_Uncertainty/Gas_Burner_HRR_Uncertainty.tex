@@ -1,0 +1,81 @@
+\documentclass[12pt]{article}
+
+% Load packages
+\usepackage{setspace}
+\usepackage{times}
+\usepackage{titlesec}
+\usepackage{fancyhdr}
+\usepackage{cite}
+\usepackage{siunitx}
+\usepackage{placeins}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{bm}
+\usepackage[version=4]{mhchem}
+\usepackage{multicol}
+\usepackage{gensymb}
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,      
+    urlcolor=blue,
+}
+% \doublespacing
+
+\titleformat{\section}
+	{\large}{}{0.5em}{\textbf}
+\titleformat{\subsection}
+	{\normalsize}{\thesubsection.}{0.5em}{\underline}
+
+\begin{document}
+\noindent The following outlines the methodology used to estimate the total expanded uncertainty of the HRRs calculated from the DelCo gas burner experiments. The estimated standard uncertainties for each parameter in Eq.~\ref{eq:HRR} are presented individually and then added in quadrature to compute a combined uncertainty, $u_c$. The expanded uncertainty, $U_e$ is computed as $2u_c$ ($k=2$).
+\\~\\
+The equation used to calculate the HRR of the three burners can be expressed as:
+\begin{equation}\label{eq:HRR}
+\dot{Q} = \left(\frac{\Delta V}{\Delta t} \right) \left( \frac{0.3048\textrm{ m}}{1\textrm{ ft}} \right)^3 \left( \frac{p_{line}+p_{atm}}{p_{base}} \right) \left( 1-\frac{T_{line}-T_{base}}{500} \right) (\Delta H_{C_3H_8}) (\rho_{C_3H_8})
+\end{equation}
+\vspace{3pt}
+\\
+Looking at the right side of Eq.~\ref{eq:HRR} and starting at the left, the standard uncertainty of each parameter can be estimated.
+\\~\\
+$\Delta V$ is the difference between two volume readings from the meter. The manufacturer reports the uncertainty of the meter as 2~\%. Thus, 
+\vspace{3pt}
+\\
+\indent \underline{$u(\Delta V)=0.02$} 
+\\~\\
+It's estimated that $\Delta t$, the time difference between the two meter readings used in $\Delta V$, could be off by a maximum of 1 second. $\Delta t$ corresponds to the difference between the video's timestamps from the two meter readings. There were some instances in which the meter rotated past the whole number reading in between two different video timestamps. The timestamp that was closest to the whole number meter reading was used for every instance. Theoretically, each of the two meter readings could have been displayed at a time that was 0.5 seconds away from two timestamps, which would result in $\Delta t$ being off by a total of 1 second. 
+
+The least amount of time elapsed between two meter readings used to calculate $\Delta V$ was 121 seconds. This value is used to calculate $u(\Delta t)$ because it will produce the largest uncertainty due to it being the smallest $\Delta t$ value. Thus, 
+\vspace{3pt}
+\\
+\indent \underline{$u(\Delta t)=1/121$}.  
+\\~\\
+There is no uncertainty associated with the unit conversion from ft$^3$ to m$^3$.
+\\~\\
+Uncertainty in the $\frac{p_{line}+p_{atm}}{p_{base}}$ term originates from $p_{line}$. $p_{atm}$, the atmospheric pressure, was measured by weather stations and never varied by more than 0.05~psi during a test. $p_{atm}=14.64$ is used as the nominal value. $p_{base}=14.73$~psi is a factory value given by the manufacturer. It's estimated that $p_{line}$ could vary by up to 1.0~psi because the pressure gauge is not completely clear in all the videos. The gauge had lines every 0.5~psi [more info] So, the gauge reading was rounded to the nearest integer, which was consistently 19~psi. As a result, taking $p_{conv}=\frac{p_{line}+p_{atm}}{p_{base}}$,  
+\vspace{3pt}
+\\
+\indent \underline{$u(p_{conv})=\frac{1.0}{19+14.64}=1.0/33.64$}
+\\~\\
+The term $\left( 1-\frac{T_{line}-T_{base}}{500} \right)$ was used to adjust the meter reading based on the line temperature. For every 5~$^\circ$F that $T_{line}$ was greater than $T_{base}$, the temperature factor decreased by 1~\%. $T_{base}=60~^\circ$F according to the manufacturer. $T_{line}$ never varied by more than 10~$^\circ$F during a test. During every test, $T_{line}$ was between 95~$^\circ$F and 85~$^\circ$F. So, using $T_{line}=90~^\circ$F as the nominal value, 
+\vspace{3pt}
+\\
+\indent \underline{$u(T_{conv})=0.01/0.94$}
+\\~\\
+The uncertainty associated with $\Delta H_{C_3H_8}$ is an insignificant contribution to the total expanded uncertainty as in \href{http://fire.nist.gov/bfrlpubs/fire08/PDF/f08012.pdf}{this publication}.
+\\~\\
+Similarly, the uncertainty with the density $\rho_{C_3H_8}$ is not considered a significant contribution to the total expanded uncertainty.
+% The nominal value for the density was $\rho_{C_3H_8}=1.82$. Using the tabulated data on page~689 of \href{https://www.nist.gov/sites/default/files/documents/srd/jpcrd331.pdf}{this manuscript} and interpolating between $T=300$~K and $T=320$~K at atmospheric pressure produces $\rho_{C_3H_8}(T=305\textrm{ K})=1.79$. As a result, 
+% \vspace{3pt}
+% \\
+% \indent \underline{$u(\rho_{C_3H_8})=0.03/1.82$}
+\\~\\
+The estimated standard uncertainties from above can be added in quadrature to yield:\\
+$u_c=\sqrt{0.02^2+(1/121)^2+(1/33.64)^2+(0.01/0.94)^2}=0.03828$ 
+\\~\\
+The total expanded uncertainty is defined as $U_e=2u_c$. Rounding to the nearest whole percentage yields: 
+\\~\\
+\large
+\indent $\boldsymbol{\Rightarrow U_{e}=8}$~\textbf{\%}
+\end{document}
