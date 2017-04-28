@@ -14,7 +14,7 @@
 
 \chapter{Results and Discussion}
 \label{chap:results_disc}
-The plots presented in the following sections compare the predicted quantities output by FDS to the experimental data measured by instrumentation. First, the results of the mesh sensitivity study that was performed to determine an appropriate grid size for the simulations are presented and discussed. Then, the data from the FDS simulations are compared to the sensor data from the nine experiments. Two types of plots are included with the discussion for each type of measured quantity: one that shows the experimental data and FDS simulation data plotted over the duration of an experiment and a log/log scatter plot of the FDS data vs. the experimental data from all experiments along with some additional statistics to express the accuracy of the FDS models in predicting the specific quantity of interest. All plotted data were time-averaged over 10~seconds in order to smooth the raw data.
+The figures presented in the following sections compare the predicted quantities output by FDS to the experimental data measured by instrumentation. First, the results of the mesh sensitivity study that was performed to determine an appropriate grid size for the simulations are presented and discussed. Then, the data from the FDS simulations are compared to the sensor data from the nine experiments. Two types of graphs are included with the discussion for each type of measured quantity: one that shows the experimental data and FDS simulation data plotted over the duration of an experiment and a log/log scatter plot of the FDS data vs. the experimental data from all experiments along with some additional statistics to express the accuracy of the FDS models in predicting the specific quantity of interest. All plotted data were time-averaged over 10~seconds in order to smooth the raw data.
 
 \section{Mesh Sensitivity Studies}
 \label{sec:mesh_studies}
@@ -66,7 +66,7 @@ Taking $M_i$ and $E_i$ to represent the change in the value of a quantity from i
 \begin{equation} 
 	\overline{\ln(M/E)}=\frac{1}{n} \sum_{i=1}^n \ln\left( \frac{M_i}{E_i} \right)
 \end{equation}
-Note, the natural log is used so that the variance of the random variable can be expressed in terms of the relative uncertainty. The assumption that $\ln(M/E)$ is normally distributed has been tested for each data type of interest by the developers of FDS, and the results are shown in the FDS Validation Guide. The standard deviation of the logarithm of a normally distributed random variable is approximately equal to the standard deviation divided by its mean, the relative standard deviation. The least squares estimate of the standard deviation of the combined distribution is defined as:
+Note, the natural logarithm function is used so that the variance of the random variable can be expressed in terms of the relative uncertainty. The assumption that $\ln(M/E)$ is normally distributed has been tested for each data type of interest by the developers of FDS, and the results are shown in the FDS Validation Guide. The standard deviation of the logarithm of a normally distributed random variable is approximately equal to the standard deviation divided by its mean, the relative standard deviation. The least squares estimate of the standard deviation of the combined distribution is defined as:
 \begin{equation}
 \label{eq:least_sqrs}
 	\widetilde{\sigma}_m^2 + \widetilde{\sigma}_E^2 \approx \frac{1}{n-1}\sum_{i=1}^n \left[ \ln(M_i/E_i) - \overline{\ln(M/E)} \right]^2
