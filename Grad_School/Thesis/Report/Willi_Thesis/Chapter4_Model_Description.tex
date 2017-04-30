@@ -200,56 +200,35 @@ The timing information that was specified within the FDS input files consisted o
 \end{quote}
 
 % Defined Materials
-Four materials were explicitly defined via the \verb|MATL| namelist group to assign to different surfaces within the simulation input files. The specific heat, thermal conductivity, and density of each material was defined by assigning appropriate values to the \verb|SPECIFIC_HEAT| (kJ/(kg$\cdot$K)), \verb|CONDUCTIVITY| (W/(m$\cdot$K)), and \verb|DENSITY| (kg/m$^3$) parameters, respectively, within the corresponding \verb|MATL| namelist group. For example, steel was defined by the lines
+Four materials were explicitly defined via the \verb|MATL| namelist group to assign to different surfaces within the simulation input files. The specific heat, thermal conductivity, and density of each material was defined by assigning appropriate values to the \verb|SPECIFIC_HEAT| (kJ/(kg$\cdot$K)), \verb|CONDUCTIVITY| (W/(m$\cdot$K)), and \verb|DENSITY| (kg/m$^3$) parameters, respectively, within the corresponding \verb|MATL| namelist group. For example, concrete was defined by the lines
 \begin{quote}
 \begin{verbatim}
-&MATL ID            = 'STEEL'
-      SPECIFIC_HEAT = 0.465
-      CONDUCTIVITY  = 54.
-      DENSITY       = 7833. /
+ &MATL ID            = 'CONCRETE'                                              
+        CONDUCTIVITY  = 1.75        
+        SPECIFIC_HEAT = 1.04       
+        DENSITY       = 2200. /
 \end{verbatim}
 \end{quote}
-A complete list of the defined materials and corresponding properties are listed in Table~\ref{table:material_props}. ***\textit{ADD REFs TO TABLE}***
+A complete list of the defined materials and corresponding properties are listed in Table~\ref{table:material_props}.
 
 \begin{table}[!ht]
 \cprotect\caption{Various Materials Defined Within Each FDS Input File and the Corresponding \verb|MATL| Namelist Group Parameter Values.}
 \begin{center}
-\begin{tabular}{cccc}
+\begin{tabular}{ccccc}
 \toprule
-\textbf{Material}  		& \verb|SPECIFIC_HEAT|	& \verb|CONDUCTIVITY| 	& \verb|DENSITY| 	\\
-\verb|ID|		& \textbf{(kJ/(kg$\cdot$K))} 	& 	\textbf{(W/(m$\cdot$K))} 	&  \textbf{(kg/m$^3$)} 		\\
+\textbf{Material}  &  \multirow{2}{*}{\textbf{Reference}} & \verb|SPECIFIC_HEAT|	        &  \verb|CONDUCTIVITY| 	      & \verb|DENSITY| 	\\
+\verb|ID|		       &                                      &   \textbf{(kJ/(kg$\cdot$K))} 	& 	\textbf{(W/(m$\cdot$K))} 	&  \textbf{(kg/m$^3$)} 		\\
 \midrule
-Steel 			& 		0.465   		&  		 54.0	 		& 	 7833  			\\
-Gypsum 			& 		1.09    		&  		 0.17	 		& 	  650  			\\
-Concrete 		& 		1.04    		&  		 1.8	 		& 	 2280  			\\
-Fiber Cement 	& 		1.0     		&  		 0.15	 		& 	 1300  			\\
+Steel 			       & 	     \cite{Gross:Props}             &	        0.48   		            &  		 62.0	 		              & 	 7850  			\\
+Gypsum 			       & 	     \cite{Gross:Props}             &	        0.90                  &  		 0.16	 		              & 	  770  			\\
+Concrete 		       & 	     \cite{Gross:Props}             &	        1.04   		            &  		 1.75	 		              & 	 2200  			\\
+Fiber Cement 	     &       \cite{Durock:specs}            &		      1.0     		          &  		 0.15	 		              & 	 1300  			\\
 \bottomrule
 \end{tabular}
 \end{center}
 \label{table:material_props}
 \end{table}
 \FloatBarrier
-% &MATL ID            = 'STEEL'
-%       SPECIFIC_HEAT = 0.465
-%       CONDUCTIVITY  = 54.
-%       DENSITY       = 7833. /
-
-% &MATL ID            = 'GYPSUM'
-%       FYI           = 'NBSIR 88-3752'
-%       CONDUCTIVITY  = 0.17
-%       SPECIFIC_HEAT = 1.09
-%       DENSITY       = 650. /
-
-% &MATL ID            = 'CONCRETE' 
-%       FYI           = 'NBSIR 88-3752'                                               
-%       CONDUCTIVITY  = 1.8        
-%       SPECIFIC_HEAT = 1.04       
-%       DENSITY       = 2280. /
-
-% &MATL ID            = 'FIBER CEMENT' 
-%       CONDUCTIVITY  = 0.15       
-%       SPECIFIC_HEAT = 1.0        
-%       DENSITY       = 1300. /
 
 The materials listed in Table~\ref{table:material_props} were explicitly specified within the FDS input files to ensure that the solid boundary surfaces throughout the model were properly defined to match the surface materials described in Chapter~\ref{chap:exp_setup}. For example, based on the description of the exterior walls from Chapter~\ref{chap:exp_setup}:  
 \begin{quote}
