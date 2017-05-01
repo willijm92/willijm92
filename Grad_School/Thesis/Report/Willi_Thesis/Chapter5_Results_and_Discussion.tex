@@ -14,39 +14,39 @@
 
 \chapter{Results and Discussion}
 \label{chap:results_disc}
-The figures presented in the following sections compare the predicted quantities output by FDS to the experimental data measured by instrumentation. First, the results of the mesh sensitivity study that was performed to determine an appropriate grid size for the simulations are presented and discussed. Then, the data from the FDS simulations are compared to the sensor data from the nine experiments. Two types of graphs are included with the discussion for each type of measured quantity: one that shows the experimental data and FDS simulation data plotted over the duration of an experiment and a log/log scatter plot of the FDS data vs. the experimental data from all experiments along with some additional statistics to express the accuracy of the FDS models in predicting the specific quantity of interest. All plotted data were time-averaged over 10~seconds in order to smooth the raw data.
+The figures presented in the following sections compare the predicted quantities output by FDS to the experimental data measured by instrumentation. First, the results of the mesh sensitivity study that was performed to determine an appropriate grid size for the simulations are presented and discussed. Then, the data from the FDS simulations are compared to the sensor data from the nine experiments. Two types of graphs are included with the discussion for each type of measured quantity: one that shows the experimental data and FDS simulation data (time-averaged over 10~seconds) plotted over the duration of an experiment and a log/log scatter plot of the FDS data vs. the experimental data from Tests~5--6 and Tests~22--25 along with some additional statistics to express the accuracy of the FDS models in predicting the specific quantity of interest. Data from Tests~2--4 were not included in the log/log plots because the heat release rates prescribed to the FDS simulations were determined through a correlation (MQH correlation) based on the experimental temperature data instead of a direct physical measurement, such as the propane flow rate.
 
 \section{Mesh Sensitivity Studies}
 \label{sec:mesh_studies}
 Figures~\ref{fig:east_O2_sensitivity}--\ref{fig:west_cjet_sensitivity} show the $O_2$ volume fractions and ceiling jet temperatures output by FDS models with coarse, medium, and fine grid sizes for simulations of Tests~4 and 25.
 \begin{figure}[!h]
 	\centering
-	\includegraphics[width=\columnwidth]{../../Plots/Grid_Sensitivity/Gas_Concentration/Test_04_O2}
+	\includegraphics[width=\columnwidth]{Figures/Plots/Grid_Sensitivity/Gas_Concentration/Test_04_O2}
 	\caption[$O_2$ concentrations for East Structure simulations of various mesh sizes.]{$O_2$ concentrations output by the FDS simulations with various mesh sizes for Test~4 in the East Structure.}
 	\label{fig:east_O2_sensitivity}
 \end{figure}
 
 \begin{figure}[!h]
 	\centering
-	\includegraphics[width=0.87\columnwidth]{../../Plots/Grid_Sensitivity/Temperature/Test_04_cjet_1}
+	\includegraphics[width=0.87\columnwidth]{Figures/Plots/Grid_Sensitivity/Temperature/Test_04_cjet_1}
 	\\~\\
-	\includegraphics[width=0.87\columnwidth]{../../Plots/Grid_Sensitivity/Temperature/Test_04_cjet_2}
+	\includegraphics[width=0.87\columnwidth]{Figures/Plots/Grid_Sensitivity/Temperature/Test_04_cjet_2}
 	\caption[Ceiling jet temperatures for East Structure simulations of various mesh sizes.]{Ceiling jet temperatures output by the FDS simulations with various mesh sizes for Test~4 in the East Structure.}
 	\label{fig:east_cjet_sensitivity}
 \end{figure}
 
 \begin{figure}[!h]
 	\centering
-	\includegraphics[width=\columnwidth]{../../Plots/Grid_Sensitivity/Gas_Concentration/Test_25_O2}
+	\includegraphics[width=\columnwidth]{Figures/Plots/Grid_Sensitivity/Gas_Concentration/Test_25_O2}
 	\caption[$O_2$ concentrations for West Structure simulations of various mesh sizes.]{$O_2$ concentrations output by the FDS simulations with various mesh sizes for Test~25 in the West Structure.}
 	\label{fig:west_O2_sensitivity}
 \end{figure}
 
 \begin{figure}[!h]
 	\centering
-	\includegraphics[width=0.87\columnwidth]{../../Plots/Grid_Sensitivity/Temperature/Test_25_cjet_1}
+	\includegraphics[width=0.87\columnwidth]{Figures/Plots/Grid_Sensitivity/Temperature/Test_25_cjet_1}
 	\\~\\
-	\includegraphics[width=0.87\columnwidth]{../../Plots/Grid_Sensitivity/Temperature/Test_25_cjet_2}
+	\includegraphics[width=0.87\columnwidth]{Figures/Plots/Grid_Sensitivity/Temperature/Test_25_cjet_2}
 	\caption[Ceiling jet temperatures for West Structure simulations of various mesh sizes.]{Ceiling jet temperatures output by the FDS simulations with various mesh sizes for Test~25 in the West Structure.}
 	\label{fig:west_cjet_sensitivity}
 \end{figure}
@@ -105,14 +105,14 @@ Figure~\ref{fig:HGL_data} shows the hot gas layer temperature derived from exper
 
 \begin{figure}[!h]
 	\centering
-	\includegraphics[width=\columnwidth]{../../Plots/Validation/Temperature/Test_22_HGL}
+	\includegraphics[width=\columnwidth]{Figures/Plots/Validation/Temperature/Test_22_HGL}
 	\caption[Plots of measured and predicted hot gas layer temperatures during Test~22.]{Plots of measured and predicted hot gas layer temperatures on the first and second floors of the West Structure during Test~22.}
 	\label{fig:HGL_data}
 \end{figure}
 
 \begin{figure}[!h]
 	\centering
-	\includegraphics[width=\columnwidth]{../../Plots/Validation/Temperature/loglog_HGL}
+	\includegraphics[width=\columnwidth]{Figures/Plots/Validation/Temperature/loglog_HGL}
 	\caption{Summary of measured and predicted hot gas layer temperatures.}
 	\label{fig:loglog_HGL}
 \end{figure}
@@ -122,32 +122,32 @@ Figure~\ref{fig:HGL_data} shows the hot gas layer temperature derived from exper
 The temperature near the ceiling can be a used to evaluate a model's ability to predict the activation times of sprinklers, smoke detectors, and other fire protection devices at ceiling height. The ``ceiling jet'' temperature used throughout this report refers to the temperature measured by the top thermocouple (closest to the ceiling) of the various thermocouple arrays located throughout the experimental structures. Figure~\ref{fig:cjet_data} shows the ceiling jet temperatures measured during Test~4 plotted with the ceiling jet temperatures predicted by the FDS model for the same duration. Figure~\ref{fig:loglog_cjets} shows the log/log scatter plot of the ceiling jet temperatures predicted by the FDS simulations compared to the corresponding measured ceiling jet temperatures for the six applicable gas burner experiments.
 \begin{figure}[!h]
 	\centering
-	\includegraphics[width=\columnwidth]{../../Plots/Validation/Temperature/Test_4_cjet_1}
+	\includegraphics[width=\columnwidth]{Figures/Plots/Validation/Temperature/Test_4_cjet_1}
 	\caption[Plots of measured and predicted ceiling jet temperatures during Test~4.]{Plots of measured and predicted ceiling jet temperatures during Test~4 obtained from thermocouple arrays A1, A3, and A5 located in the fire room, middle room, and north room, respectively.}
 	\label{fig:cjet_data}
 \end{figure}
 
 \begin{figure}[!h]
 	\centering
-	\includegraphics[width=\columnwidth]{../../Plots/Validation/Temperature/loglog_cjetTCs}
+	\includegraphics[width=\columnwidth]{Figures/Plots/Validation/Temperature/loglog_cjetTCs}
 	\caption{Summary of measured and predicted ceiling jet temperatures.}
 	\label{fig:loglog_cjets}
 \end{figure}
 
 \clearpage
 \subsubsection*{\textit{Thermocouple Arrays}}
-[PRESENT PLOTS SIMILAR TO HGL AND CEILING JET SECTIONS]
+In addition to the hot gas layer and ceiling jet temperatures, the measured and predicted temperatures at each thermocouple location for each thermocouple array were compared. Two figures of the temperatures over the duration of each test were generated for each thermocouple array: one of the ``upper'' temperatures corresponding to the four thermocouple locations nearest to the ceiling and one of the ``lower'' temperatures corresponding to the four thermocouple locations nearest to the floor. Figure~\ref{fig:TCarray_data} contains the measured and predicted upper temperatures from array A1 over the duration of Test~24 and Figure~\ref{fig:loglog_TC_arrays} shows the log/log scatter plot of the temperatures measured at the different thermocouple locations within the thermocouple arrays compared to the temperatures at the same locations predicted by the FDS simulations for Tests~5--6 and Tests~22--25.
 \begin{figure}[!h]
 	\centering
-	\includegraphics[width=\columnwidth]{../../Plots/Validation/Temperature/Test_24_TC_A1_upper}
-	\caption[Plots of measured and predicted thermocouple array temperatures during Test~24.]{Plots of measured and predicted temperatures during Test~24 obtained from thermocouple array A1.}
+	\includegraphics[width=\columnwidth]{Figures/Plots/Validation/Temperature/Test_24_TC_A1_upper}
+	\caption[Plot of the measured and predicted upper temperatures from array A1 during Test~24.]{Plots of measured and predicted ``upper'' temperatures from array A1 during Test~24.}
 	\label{fig:TCarray_data}
 \end{figure}
 
 \begin{figure}[!h]
 	\centering
-	\includegraphics[width=\columnwidth]{../../Plots/Validation/Temperature/loglog_TC_arrays}
-	\caption{Summary of measured and predicted temperatures obtained from thermocouple arrays.}
+	\includegraphics[width=\columnwidth]{Figures/Plots/Validation/Temperature/loglog_TC_arrays}
+	\caption{Summary of measured and predicted temperatures at the individual thermocouple locations within the different thermocouple arrays.}
 	\label{fig:loglog_TC_arrays}
 \end{figure}
 
@@ -155,34 +155,34 @@ The temperature near the ceiling can be a used to evaluate a model's ability to 
 \subsection{Gas Species Concentration}
 
 \subsubsection*{\textit{$O_2$} Concentration}
-[PRESENT PLOTS SIMILAR TO HGL AND CEILING JET SECTIONS]
+The measured and predicted oxygen concentrations of Room~1 (fire room) and Room~3 in the East Structure for the duration of Test~3 are shown in Figure~\ref{fig:Test3_O2} as the black and red plots, respectively. Additionally, the summary log/log scatter plot of the predicted oxygen concentrations compared to the corresponding measured oxygen concentrations for Tests~5--6 and Tests~22--25 is shown in Figure~\ref{fig:loglog_O2}.
 \begin{figure}[!h]
 	\centering
-	\includegraphics[width=\columnwidth]{../../Plots/Validation/Gas_Concentration/Test_3_O2}
+	\includegraphics[width=\columnwidth]{Figures/Plots/Validation/Gas_Concentration/Test_3_O2}
 	\caption[Plots of measured and predicted $O_2$ concentration during Test~3.]{Plots of measured and predicted $O_2$ concentration in the fire room (black plots) and north room (red plots) during Test~3.}
 	\label{fig:Test3_O2}
 \end{figure}
 
 \begin{figure}[!h]
 	\centering
-	\includegraphics[width=\columnwidth]{../../Plots/Validation/Gas_Concentration/loglog_O2}
+	\includegraphics[width=\columnwidth]{Figures/Plots/Validation/Gas_Concentration/loglog_O2}
 	\caption{Summary of measured and predicted $O_2$ concentrations.}
 	\label{fig:loglog_O2}
 \end{figure}
 
 \FloatBarrier
 \subsubsection*{\textit{$CO_2$} Concentration}
-Note about maximum reading of 0.10 due to instrumentation. [PRESENT PLOTS SIMILAR TO HGL AND CEILING JET SECTIONS]
+The measured and predicted carbon dioxide concentrations of Room~1 (fire room) and Room~3 in the East Structure for the duration of Test~3 are shown in Figure~\ref{fig:Test3_CO2} as the black and red plots, respectively. Note, the gas sampling system used to measure gas species concentrations could measure $CO_2$ concentrations below 0.10. Thus, data pairs from the applicable time ranges of Tests~5--6 and Tests~22--25 for which the measured $CO_2$ volume fraction was 0.10 were not used to create the summary log/log scatter plot of the predicted carbon dioxide concentrations compared to the corresponding measured carbon dioxide concentrations shown in Figure~\ref{fig:loglog_CO2} below.
 \begin{figure}[!h]
 	\centering
-	\includegraphics[width=\columnwidth]{../../Plots/Validation/Gas_Concentration/Test_3_CO2}
+	\includegraphics[width=\columnwidth]{Figures/Plots/Validation/Gas_Concentration/Test_3_CO2}
 	\caption[Plots of measured and predicted $CO_2$ concentration during Test~3.]{Plots of measured and predicted $CO_2$ concentration in the fire room (black plots) and north room (red plots) during Test~3.}
 	\label{fig:Test3_CO2}
 \end{figure}
 
 \begin{figure}[!h]
 	\centering
-	\includegraphics[width=\columnwidth]{../../Plots/Validation/Gas_Concentration/loglog_CO2}
+	\includegraphics[width=\columnwidth]{Figures/Plots/Validation/Gas_Concentration/loglog_CO2}
 	\caption{Summary of measured and predicted $CO_2$ concentrations.}
 	\label{fig:loglog_CO2}
 \end{figure}
@@ -193,31 +193,32 @@ Because the gas burner experiments were conducted outdoors, they were subject to
 
 \begin{figure}[!h]
 	\centering
-	\includegraphics[width=\columnwidth]{../../Plots/Validation/Velocity/Test_5_BDP_A10}
+	\includegraphics[width=\columnwidth]{Figures/Plots/Validation/Velocity/Test_5_BDP_A10}
 	\caption[Plots of measured and predicted gas velocity through the roof vent during Test~5.]{Plots of measured and predicted gas velocity through the roof vent during Test~5.}
 	\label{fig:Test5_BDPs}
 \end{figure}
 
 \begin{figure}[!h]
 	\centering
-	\includegraphics[width=\columnwidth]{../../Plots/Validation/Velocity/loglog_BDPs}
+	\includegraphics[width=\columnwidth]{Figures/Plots/Validation/Velocity/loglog_BDPs}
 	\caption{Summary of measured and predicted gas velocity measurements.}
 	\label{fig:loglog_BDPs}
 \end{figure}
 
 \clearpage
 \subsection{Total Heat Flux}
-[PRESENT PLOTS SIMILAR TO HGL AND CEILING JET SECTIONS]
+The heat flux measured by the total heat flux gauges near the stairway door and near the south door on the second floor of the West Structure during Test~23 are plotted with the heat flux data generated by the Test~23 FDS simulation at the same locations in Figure~\ref{fig:Test23_HFs} below. The log/log scatter plot comparing the heat flux data measured by the various heat flux gauges to the heat flux output by FDS at the same locations for the applicable time periods throughout Tests~5--6 and Tests~22--25 is shown in Figure~\ref{fig:loglog_HFs}.  
+
 \begin{figure}[!h]
 	\centering
-	\includegraphics[width=\columnwidth]{../../Plots/Validation/Heat_Flux/Test_23_HFs}
+	\includegraphics[width=\columnwidth]{Figures/Plots/Validation/Heat_Flux/Test_23_HFs}
 	\caption[Plots of measured and predicted heat flux during Test~23.]{Plots of measured and predicted heat flux measured by total heat flux gauges at the top of the stairs facing the stair doorway (`H') and facing the ceiling (`V').}
-	\label{fig:Test23_HF1}
+	\label{fig:Test23_HFs}
 \end{figure}
 
 \begin{figure}[!h]
 	\centering
-	\includegraphics[width=\columnwidth]{../../Plots/Validation/Heat_Flux/loglog_HFs}
+	\includegraphics[width=\columnwidth]{Figures/Plots/Validation/Heat_Flux/loglog_HFs}
 	\caption{Summary of measured and predicted heat flux measurements.}
 	\label{fig:loglog_HFs}
 \end{figure}
@@ -259,4 +260,4 @@ Overall, the agreement between the FDS simulation data and experimental data for
 
 The $\delta$, $\sigma_E$, and $\sigma_M$ values produced by the gas burner model and experimental data for both the $O_2$ and $CO_2$ gas concentrations were very close to the values documented in the FDS Validation Guide. The $\sigma_E$ values are equal in both comparisons and the $\sigma_M$ values are greater in magnitude by only 0.01 and 0.02 compared to the validation guide values for oxygen and carbon dioxide concentration, respectively. Finally, based on the data from gas burner simulations, the oxygen concentration model bias is worse (further from the ideal value of 1) by 7~\% and carbon dioxide concentration model bias is worse by 4~\% compared to the documented values in the FDS Validation Guide.
 
-The most significant discrepancy between the documented values and values from the gas burner models is seen in the gas velocity comparison, in which $\sigma_M$ was calculated as being greater than the $\sigma_M$ from the validation guide by a value 0.18. This discrepancy may exist for a few of reasons. First, gas velocity was one of the quantities with the highest uncertainty associated with the experimental measurements. Also, as previously mentioned, the experiments were conducted outdoors, so environmental conditions may have affected the measurements, even though only data from BDPs that were fully inside the structures were considered. Almost all ([CHECK VALIDATION GUIDE FOR EXACT NUMBER]) the tests used to calculate the $\delta$, $\sigma_E$, and $\sigma_M$ within the validation guide were conducted in a laboratory setting, which could explain the significantly smaller model relative standard deviation. Finally, due to the nature of the fire environment at the time of the measurements, it's possible that turbulent flow was occurring through the vents (especially the roof vent in Tests~5 and 6) at the time of the measurements. LES CFD models, like FDS, tend to be limited more in terms of accurately measuring turbulent flow than compared to measurements during other conditions.
+The most significant discrepancy between the documented values and values from the gas burner models is seen in the gas velocity comparison, in which $\sigma_M$ was calculated as being greater than the $\sigma_M$ from the validation guide by a value 0.18. This discrepancy may exist for a few of reasons. First, gas velocity was one of the quantities with the highest uncertainty associated with the experimental measurements. Also, as previously mentioned, the experiments were conducted outdoors, so environmental conditions may have affected the measurements, even though only data from BDPs that were fully inside the structures were considered. All the tests used to calculate the $\delta$, $\sigma_E$, and $\sigma_M$ within the validation guide were conducted in an indoors laboratory setting, which could explain the significantly smaller model relative standard deviation. Finally, due to the nature of the fire environment at the time of the measurements, it's possible that turbulent flow was occurring through the vents (especially the roof vent in Tests~5 and 6) at the time of the measurements. LES CFD models, like FDS, tend to be limited more in terms of accurately measuring turbulent flow than compared to measurements during other conditions.
