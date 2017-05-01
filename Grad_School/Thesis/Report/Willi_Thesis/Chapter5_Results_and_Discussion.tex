@@ -6,7 +6,7 @@
 %................................
 % >> Add plots of gas data stochiometric stuff+
 % >> Evaluate comparison of HF and Velocity data and decide if it should be included
-% >> Average velocity along entire door?
+% >> Average velocity along entire door?{}
 % >> Flame height via video footage?
 % >> Linear plots of parameters vs. each other
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -14,15 +14,15 @@
 
 \chapter{Results and Discussion}
 \label{chap:results_disc}
-The figures presented in the following sections compare the predicted quantities output by FDS to the experimental data measured by instrumentation. First, the results of the mesh sensitivity study that was performed to determine an appropriate grid size for the simulations are presented and discussed. Then, the data from the FDS simulations are compared to the sensor data from the nine experiments. Two types of graphs are included with the discussion for each type of measured quantity: one that shows the experimental data and FDS simulation data (time-averaged over 10~seconds) plotted over the duration of an experiment and a log/log scatter plot of the FDS data vs. the experimental data from Tests~5--6 and Tests~22--25 along with some additional statistics to express the accuracy of the FDS models in predicting the specific quantity of interest. Data from Tests~2--4 were not included in the log/log plots because the heat release rates prescribed to the FDS simulations were determined through a correlation (MQH correlation) based on the experimental temperature data instead of a direct physical measurement, such as the propane flow rate.
+Three different types of figures are presented in this chapter to assist with the discussion of the results. One type is presented with the discussion of the mesh sensitivity study results that were used to select an appropriate grid cell size for the simulations. The other two types are presented throughout the comparison of the predicted data output by the FDS simulations to the corresponding experimental data. 
 
 \section{Mesh Sensitivity Studies}
 \label{sec:mesh_studies}
-Figures~\ref{fig:east_O2_sensitivity}--\ref{fig:west_cjet_sensitivity} show the $O_2$ volume fractions and ceiling jet temperatures output by FDS models with coarse, medium, and fine grid sizes for simulations of Tests~4 and 25.
+Figures~\ref{fig:east_O2_sensitivity}--\ref{fig:west_cjet_sensitivity} show the oxygen volume fractions and ceiling jet temperatures output by FDS simulations of Test~4 and Test~25 using the coarse, medium, and fine grid sizes across the computational domain.
 \begin{figure}[!h]
 	\centering
 	\includegraphics[width=\columnwidth]{Figures/Plots/Grid_Sensitivity/Gas_Concentration/Test_04_O2}
-	\caption[$O_2$ concentrations for East Structure simulations of various mesh sizes.]{$O_2$ concentrations output by the FDS simulations with various mesh sizes for Test~4 in the East Structure.}
+	\caption[$O_2$ concentrations for East Structure simulation with different grid cell sizes.]{$O_2$ concentrations output by the FDS simulation of Test~4 in the East Structure using three different grid cell sizes.}
 	\label{fig:east_O2_sensitivity}
 \end{figure}
 
@@ -31,14 +31,14 @@ Figures~\ref{fig:east_O2_sensitivity}--\ref{fig:west_cjet_sensitivity} show the 
 	\includegraphics[width=0.87\columnwidth]{Figures/Plots/Grid_Sensitivity/Temperature/Test_04_cjet_1}
 	\\~\\
 	\includegraphics[width=0.87\columnwidth]{Figures/Plots/Grid_Sensitivity/Temperature/Test_04_cjet_2}
-	\caption[Ceiling jet temperatures for East Structure simulations of various mesh sizes.]{Ceiling jet temperatures output by the FDS simulations with various mesh sizes for Test~4 in the East Structure.}
+	\caption[Ceiling jet temperatures for East Structure simulation with different grid cell sizes.]{Ceiling jet temperatures output by the FDS simulation of Test~4 in the East Structure using three different grid cell sizes.}
 	\label{fig:east_cjet_sensitivity}
 \end{figure}
 
 \begin{figure}[!h]
 	\centering
 	\includegraphics[width=\columnwidth]{Figures/Plots/Grid_Sensitivity/Gas_Concentration/Test_25_O2}
-	\caption[$O_2$ concentrations for West Structure simulations of various mesh sizes.]{$O_2$ concentrations output by the FDS simulations with various mesh sizes for Test~25 in the West Structure.}
+	\caption[$O_2$ concentrations for West Structure simulation with different grid cell sizes.]{$O_2$ concentrations output by the FDS simulation of Test~25 in the West Structure using three different grid cell sizes.}
 	\label{fig:west_O2_sensitivity}
 \end{figure}
 
@@ -47,20 +47,23 @@ Figures~\ref{fig:east_O2_sensitivity}--\ref{fig:west_cjet_sensitivity} show the 
 	\includegraphics[width=0.87\columnwidth]{Figures/Plots/Grid_Sensitivity/Temperature/Test_25_cjet_1}
 	\\~\\
 	\includegraphics[width=0.87\columnwidth]{Figures/Plots/Grid_Sensitivity/Temperature/Test_25_cjet_2}
-	\caption[Ceiling jet temperatures for West Structure simulations of various mesh sizes.]{Ceiling jet temperatures output by the FDS simulations with various mesh sizes for Test~25 in the West Structure.}
+	\caption[Ceiling jet temperatures for West Structure simulation with different grid cell sizes.]{Ceiling jet temperatures output by the FDS simulation of Test~25 in the West Structure using three different grid cell sizes.}
 	\label{fig:west_cjet_sensitivity}
 \end{figure}
 
 \FloatBarrier
 
-Looking at the plots presented above, significant changes in the model data exist when the grid size is reduced from 14~cm to 10~cm. Notice in Figure~\ref{fig:west_cjet_sensitivity}, the 14~cm grid was not refined enough to define the thermocouple locations at 0.03~m below the ceiling. Insignificant changes occur in the output data between the 10~cm grid size and the finer grid size of 5~cm for Test~4 and 7~cm for Test~25. These results suggest that a mesh size of 10~cm is appropriate for the FDS simulations of experiments in both the East and West Structures.
+The plots presented above show that significant differences occur at various times between the model data produced using the coarse grid and the same model data produced using the medium and fine grid resolutions. For example, looking at Figure~\ref{fig:west_O2_sensitivity}, the oxygen volume fraction data on the first floor of the West Structure output by the coarse grid deviates significantly from the data produced by medium and fine grid sizes around 300 seconds. Furthermore, the oxygen volume fraction data on the second floor output using the coarse grid drops to a minimum of approximately 0.18 during the portion of the simulation in which the burners are ignited, while the volume fraction data output using the medium and fine grids drop to a similar minimum that is around 0.13. 
 
-\section{FDS Model Output Compared to Experimental Data}
-In the following subsections, the temperature, gas species concentration, gas velocity, and heat flux measurements predicted by the FDS simulations are compared to the corresponding sensor data measured during the propane burner experiments. Two different types of plots are presented in each section below. 
+Looking at the oxygen volume fraction and ceiling jet temperature data output by the East Structure simulation, Figures~\ref{fig:east_O2_sensitivity} and \ref{fig:east_cjet_sensitivity}, respectively, for different mesh resolutions, the data from the coarse grid exhibits more agreement with the medium and fine grid data than the West Structure simulation data plots. However, significant differences still arise between the coarse grid data and the simulation data produced by the medium and fine resolutions, such as the larger decline in ceiling jet temperature seen around 400~seconds.   
 
-First, a figure is presented in each section to show a comparison of sensor data from a specific test (solid line with circle markers) and the corresponding data output by FDS (dashed line with triangle markers). These types of plots were generated for data collected at each of the various measurement locations described in Chapter~\ref{chap:exp_setup} for each experiment. Appendix~\ref{chap:exp_FDS_plots} contains the remaining plots that compare the experimental data to the FDS data over the duration of each experiment. 
+% Notice in Figure~\ref{fig:west_cjet_sensitivity}, the 14~cm grid was not refined enough to define the thermocouple locations at 0.03~m below the ceiling. 
+Due to the large discrepancies between the coarse grid data and the data produced by the other two mesh resolutions, the coarse grid was considered too coarse for all simulations of the burner experiments. However, there doesn't appear to be any significant differences between the simulation data produced by the medium mesh resolution and the simulation data produced by the fine mesh resolution. As a result, the medium grid cell size of 10~cm was selected for all nine FDS simulations.
 
-The second type of plot that was generated for each discussed quantity is a log/log scatter plot designed to evaluate the model uncertainty in predicting the respective quantity. The plot is similiar to those found within the FDS Validation guide~\cite{FDS_Validation_Guide}. The procedure followed to generate the plots and statistical data is briefly outlined below. Full details of the analysis are described in detail in by McGrattan and Toman in Ref.~\cite{McGrattan:Metrologia}.
+\section{FDS Model Data Compared to Experimental Data}
+In the following subsections, the temperature, gas species concentration, gas velocity, and heat flux measurements predicted by the FDS simulations are compared to the corresponding sensor data measured during the propane burner experiments. Two different types of graphs are included to aid in the comparison of the model data and experimental data. The first type is similar to the mesh sensitivity study figures in that it shows the simulation data and experimental data (time-averaged over 10~seconds) plotted over the duration of an experiment for a specific data type at a specific location(s). Only one plot is presented for each discussed data quantity; the remaining figures of the discussed data types plotted over the duration each experiment for the different measurement locations are included in Appendix~\ref{chap:exp_FDS_plots}.
+
+The second type of figure presented with each data quantity discussion summarizes the model uncertainty in predicting the specific data quantity. The summary graphs are similar to those presented in the FDS Validation Guide~\cite{FDS_Validation_Guide} --- each is a log/log scatter plot in which the $x$ value of each point is based on a set of measured, experimental data and the $y$ value of each point is based on the equivalent set of predicted data from the FDS simulation. No data from Tests~2--4 were used to generate the summary scatter plots because the heat release rates prescribed to the FDS simulations of the tests were determined through the use of a correlation (MQH) based on the experimental temperature data instead of through a direct physical measurement, such as the flow rate of propane to the burners used to determine the prescribed heat release rates for the other six simulations. The procedure used to generate the scatter plots and statistical data is briefly outlined below. Full details of the analysis are described in detail in by McGrattan and Toman in Ref.~\cite{McGrattan:Metrologia}.
 
 Taking $M_i$ and $E_i$ to represent the change in the value of a quantity from its ambient at a specific time based on the data output by the FDS simulation and measured by instrumentation during the experiment, respectively, the mean and standard deviation of the distribution can be estimated by first calculating
 \begin{equation} 
@@ -80,7 +83,7 @@ Using the mean of the distribution, an estimate of a bias factor, $\delta$, whic
 	\delta \approx \exp\left( \overline{\ln(M/E)}+\frac{\widetilde{\sigma}_M^2}{2}-\frac{\widetilde{\sigma}_E^2}{2} \right)
 \end{equation}
 
-The values of $\delta$, $\sigma_M$, and $\sigma_E$ are reported with each log/log plot in the following sections. For each plot, the solid red line and solid black line represent the expected values for $M$ and $E$, respectively, and the dashed lines represent $\pm \sigma$, or standard deviations, of the corresponding color. Each plotted gray point on the log/log scatter plots was plotted based on the average values across the same 30 second experimental period calculated using the model (predicted) data and the experimental (measured) data. The only 30 second time periods for which points were plotted are those during which natural ventilation was the only type of ventilation (i.e., periods for which there was no PPV fan) and at least one gas burner was ignited. Table~\ref{table:stats_compare} in the final section of this chapter summarizes the calculated statistical values for each data type and how they compare to the same statistics contained in the FDS Validation Guide.
+The values of $\delta$, $\sigma_M$, and $\sigma_E$ are reported with each log/log plot in the following sections. For each plot, the solid red line and solid black line represent the expected values for $M$ and $E$, respectively, and the dashed lines represent $\pm \sigma$, or standard deviations, of the data corresponding to the line color. Each plotted gray point represents an average value of the specific data quantity across a 30 second test period in which one or more gas burners were ignited and only natural ventilation was present throughout the structure (i.e., no PPV fan was turned on). All the points are based on computed values over the applicable time periods of Tests~5--6 and Tests~22--25. Table~\ref{table:stats_compare} in the final section of this chapter summarizes the statistical values calculated for each data type and is presented with a brief discussion of how the values compare to the same statistical values listed in the FDS Validation Guide.
 
 \subsection{Temperature}
 
