@@ -61,8 +61,8 @@ save_dir = '../Plots/Validation/'
 plot_CO2     = False
 plot_O2      = False
 plot_TC      = False
-plot_HF      = True
-plot_BDP     = False
+plot_HF      = False
+plot_BDP     = True
 plot_HGL     = False
 plot_cjetTC  = False
 
@@ -383,7 +383,10 @@ for f in os.listdir(exp_data_dir):
 						for name in channel_ls1:
 							x = exp_data.index.values.astype(float)
 							y = exp_data[name].values.astype(float)
+							exp_max = np.max(y)
+							error_index = np.argmax(y)*10
 							plt.plot(x, y, ls='-', lw=2, label='Exp '+name)
+							plt.errorbar(error_index, exp_max, yerr=exp_max*exp_error, c=next(err_colors), fmt='o', ms=4, capthick=1.25,lw=1.25, capsize=8)
 							plotted_channels.append(name)
 						print ('    Plotted '+group+' upper channels Exp Data')
 
@@ -399,7 +402,10 @@ for f in os.listdir(exp_data_dir):
 						for name in channel_ls1:
 							x = FDS_data.index.values.astype(float)
 							y = FDS_data[name].values.astype(float)+offset
+							FDS_max = np.max(y)
+							error_index = np.argmax(y)*10
 							plt.plot(x, y, ls='--', lw=2, label='FDS '+name)
+							plt.errorbar(error_index, FDS_max, yerr=FDS_max*FDS_error, c=next(err_colors), fmt='o', ms=4, capthick=1.25,lw=1.25, capsize=8)
 						print ('    Plotted ' + group + ' upper channels FDS Data')
 
 						plt.grid(color='0.75', linestyle='-.', linewidth=1)
@@ -442,7 +448,7 @@ for f in os.listdir(exp_data_dir):
 							exp_max = np.max(y)
 							error_index = np.argmax(y)*10
 							plt.plot(x, y, ls='-', lw=2, label='Exp '+name)
-							# plt.errorbar(error_index, exp_max, yerr=exp_max*exp_error, c=next(err_colors), fmt='o', ms=4, capthick=1.25,lw=1.25, capsize=8)	
+							plt.errorbar(error_index, exp_max, yerr=exp_max*exp_error, c=next(err_colors), fmt='o', ms=4, capthick=1.25,lw=1.25, capsize=8)	
 							plotted_channels.append(name)
 						print ('    Plotted '+group+' lower channels Exp Data')
 
@@ -458,7 +464,7 @@ for f in os.listdir(exp_data_dir):
 							FDS_max = np.max(y)
 							error_index = np.argmax(y)*10
 							plt.plot(x, y, ls='--', lw=2, label='FDS '+name)
-							# plt.errorbar(error_index, FDS_max, yerr=FDS_max*FDS_error, c=next(err_colors), fmt='o', ms=4, capthick=1.25,lw=1.25, capsize=8)	
+							plt.errorbar(error_index, exp_max, yerr=exp_max*exp_error, c=next(err_colors), fmt='o', ms=4, capthick=1.25,lw=1.25, capsize=8)	
 						print ('    Plotted ' + group + ' lower channels FDS Data')
 
 						plt.grid(color='0.75', linestyle='-.', linewidth=1)
@@ -509,13 +515,13 @@ for f in os.listdir(exp_data_dir):
 								y = exp_data[name].values.astype(float)
 
 							if name[:2] != 'O2':
-								exp_max = np.max(y)
-								error_index = np.argmax(y)*10
+								exp_max = np.max(y[:100])
+								error_index = np.argmax(y[:100])*10
 							else:
 							 	exp_max = np.min(y)
 							 	error_index = np.argmin(y)*10
 							plt.plot(x, y, ls='-', lw=2, label='Exp '+name)
-							# plt.errorbar(error_index, exp_max, yerr=exp_max*exp_error, c=next(err_colors), fmt='o', ms=4, capthick=1.25,lw=1.25, capsize=8)
+							plt.errorbar(error_index, exp_max, yerr=exp_max*exp_error, c=next(err_colors), fmt='o', ms=4, capthick=1.25,lw=1.25, capsize=8)
 							plotted_channels.append(name)
 						print ('    Plotted '+group+' Exp Data')
 
@@ -528,13 +534,13 @@ for f in os.listdir(exp_data_dir):
 							x = FDS_data.index.values.astype(float)
 							y = FDS_data[name].values.astype(float)
 							if name[:2] != 'O2':
-								FDS_max = np.max(y)
-								error_index = np.argmax(y)*10
+								FDS_max = np.max(y[:200])
+								error_index = np.argmax(y[:200])*10
 							else:
 								FDS_max = np.min(y)
 								error_index = np.argmin(y)*10
 							plt.plot(x, y, ls='--', lw=2, label='FDS '+name)
-							# plt.errorbar(error_index, FDS_max, yerr=FDS_max*FDS_error, c=next(err_colors), fmt='o', ms=4, ls='--',capthick=1.25,lw=1.25, capsize=8)
+							plt.errorbar(error_index, FDS_max, yerr=FDS_max*FDS_error, c=next(err_colors), fmt='o', ms=4, ls='--',capthick=1.25,lw=1.25, capsize=8)
 						print ('    Plotted ' + group + ' FDS Data')
 
 						plt.grid(color='0.75', linestyle='-.', linewidth=1)

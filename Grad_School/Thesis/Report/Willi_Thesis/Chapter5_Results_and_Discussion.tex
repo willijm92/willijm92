@@ -88,23 +88,23 @@ The values of $\delta$, $\sigma_M$, and $\sigma_E$ are reported with each log/lo
 \subsection{Temperature}
 
 \subsubsection*{\textit{Hot Gas Layer}}
-A quantity that is commonly estimated for compartment fire scenarios is the location of the interface between the hot, smoke-laden upper layer and cooler, lower layer. Some fire models, such as two-zone models, calculate this value directly, along with the average temperature of the upper (hot gas) layer and lower layer. Being that it's a CFD model, FDS computes a continuous profile of temperature and thus, does not directly calculate the interface location or the average temperature of each layer. However, numerous techniques exist to estimate the layer height and average temperatures from a continuous vertical profile of temperature. The temperatures measured by the thermocouples in the vertical arrays throughout the experimental structures were used to define a vertical profile of temperature, $T(z)$, in which $z$ is the height above the floor ($z=0$ at the floor and $z=H$ at the room's ceiling). Then, the vertical temperature profile was used to estimate the hot gas layer temperature by a method developed by Janssens and Tran~\cite{Janssens:JFS1992}. Taking $T_u$ as the upper layer temperature, $T_l$ as the lower layer temperature, and $z_{int}$ as the hot gas layer interface height, the method is outlined below, starting with the calculation of the quantities $I_1$ and $I_2$
+A quantity that is commonly estimated for compartment fire scenarios is the location of the interface between the hot, smoke-laden upper layer and cooler, lower layer. Some fire models, such as two-zone models, calculate this value directly, along with the average temperature of the hot gas (upper) layer and lower layer. Being that it's a CFD model, FDS computes a continuous profile of temperature and as such, does not directly calculate the interface location or the average temperature of each layer. However, numerous techniques exist to estimate the layer height and average temperatures from a continuous vertical profile of temperature. The temperatures measured by the thermocouples in the vertical arrays throughout the experimental structures were used to define a vertical profile of temperature, $T(z)$, in which $z$ is the height above the floor ($z=0$ at the floor and $z=H$ at the room's ceiling). Then, the vertical temperature profile was used to estimate the hot gas layer (HGL) temperature by a method developed by Janssens and Tran~\cite{Janssens:JFS1992}. Taking $T_u$ as the upper layer temperature, $T_l$ as the lower layer temperature, and $z_{int}$ as the HGL interface height, the method is outlined below, starting with the calculation of the quantities $I_1$ and $I_2$
 \begin{equation*}
 	I_1 = \int^H_0 T(z)dz = (H-z_{int})T_u+z_{int}T_l
 \end{equation*}
 \begin{equation*}
 	I_2 = \int^H_0 \frac{1}{T(z)}dz = (H-z_{int})\frac{1}{T_u}+z_{int}\frac{1}{T_l}
 \end{equation*}
-$I_1$ and $I_2$ are then used to solve for $z_{int}$ as follows
+$I_1$ and $I_2$ are then used to solve for $z_{int}$ as follows:
 \begin{equation}
 	z_{int}=\frac{T_l(I_1I_2-H^2)}{I_1+I_2 T_l^2-2T_l H}
 \end{equation}
-$T_l$ is the temperature in the lowest mesh cell (or thermocouple) and $T_u$ is the average upper layer temperature defined by
+where $T_l$ is the temperature in the lowest mesh cell (or thermocouple) and $T_u$ is the average upper layer temperature defined by
 \begin{equation}
 	(H-z_{int})T_u=\int^H_{z_{int}} T(z)dz
 \end{equation}
 
-Figure~\ref{fig:HGL_data} shows the hot gas layer temperature derived from experimental data plotted with the same quantity derived from the FDS simulation data for Test~22, and Figure~\ref{fig:loglog_HGL} shows the log/log scatter plot of the hot gas layer temperatures obtained from the predicted data from the FDS simulations compared to the values obtained by the measured data for the six applicable gas burner experiments. 
+Figure~\ref{fig:HGL_data} contains the HGL temperature derived from experimental data plotted with the HGL temperature derived from the FDS simulation data over the duration of Test~22. The log/log scatter plot comparing the HGL temperatures obtained from the predicted temperature data and the HGL temperatures obtained from the measured experimental data for the applicable time periods from all the tests is presented in Figure~\ref{fig:loglog_HGL}.
 
 \begin{figure}[!h]
 	\centering
@@ -122,11 +122,11 @@ Figure~\ref{fig:HGL_data} shows the hot gas layer temperature derived from exper
 
 \FloatBarrier
 \subsubsection*{\textit{Ceiling Jet}}
-The temperature near the ceiling can be a used to evaluate a model's ability to predict the activation times of sprinklers, smoke detectors, and other fire protection devices at ceiling height. The ``ceiling jet'' temperature used throughout this report refers to the temperature measured by the top thermocouple (closest to the ceiling) of the various thermocouple arrays located throughout the experimental structures. Figure~\ref{fig:cjet_data} shows the ceiling jet temperatures measured during Test~4 plotted with the ceiling jet temperatures predicted by the FDS model for the same duration. Figure~\ref{fig:loglog_cjets} shows the log/log scatter plot of the ceiling jet temperatures predicted by the FDS simulations compared to the corresponding measured ceiling jet temperatures for the six applicable gas burner experiments.
+The temperature near the ceiling, often referred to as the ceiling jet temperature, can be used to evaluate a model's ability to predict the activation times of sprinklers, smoke detectors, and other fire protection devices at ceiling height. The ``ceiling jet'' temperature discussed in this report refers to the temperature measured by the top thermocouple (closest to the ceiling) of the various thermocouple arrays located throughout the experimental structures. Figure~\ref{fig:cjet_data} shows the ceiling jet temperatures measured by the top thermocouple plotted with the ceiling jet temperatures predicted by the FDS model over the duration of Test~4. Figure~\ref{fig:loglog_cjets} contains the log/log scatter plot of the ceiling jet temperatures predicted by the FDS simulations compared to the corresponding measured ceiling jet temperatures for all applicable time periods in Tests~5--6 and Tests~22--25.
 \begin{figure}[!h]
 	\centering
 	\includegraphics[width=\columnwidth]{Figures/Plots/Validation/Temperature/Test_4_cjet_1}
-	\caption[Plots of measured and predicted ceiling jet temperatures during Test~4.]{Plots of measured and predicted ceiling jet temperatures during Test~4 obtained from thermocouple arrays A1, A3, and A5 located in the fire room, middle room, and north room, respectively.}
+	\caption[Plots of measured and predicted ceiling jet temperatures during Test~4.]{Plots of measured and predicted ceiling jet temperatures during Test~4 obtained from thermocouple arrays A1, A3, and A5 located in the fire room, middle room, and north room, respectively, in the East Structure.}
 	\label{fig:cjet_data}
 \end{figure}
 
@@ -139,11 +139,11 @@ The temperature near the ceiling can be a used to evaluate a model's ability to 
 
 \clearpage
 \subsubsection*{\textit{Thermocouple Arrays}}
-In addition to the hot gas layer and ceiling jet temperatures, the measured and predicted temperatures at each thermocouple location for each thermocouple array were compared. Two figures of the temperatures over the duration of each test were generated for each thermocouple array: one of the ``upper'' temperatures corresponding to the four thermocouple locations nearest to the ceiling and one of the ``lower'' temperatures corresponding to the four thermocouple locations nearest to the floor. Figure~\ref{fig:TCarray_data} contains the measured and predicted upper temperatures from array A1 over the duration of Test~24 and Figure~\ref{fig:loglog_TC_arrays} shows the log/log scatter plot of the temperatures measured at the different thermocouple locations within the thermocouple arrays compared to the temperatures at the same locations predicted by the FDS simulations for Tests~5--6 and Tests~22--25.
+In addition to the HGL and ceiling jet temperatures, the measured and predicted temperatures at each individual thermocouple in the various thermocouple arrays were compared. Two figures of the temperatures over the duration of each test were generated for each thermocouple array: one of the ``upper'' temperatures corresponding to the temperatures from the four thermocouples closest to the ceiling and another of the ``lower'' temperatures corresponding to the other four thermocouples, the four closest to the floor. Figure~\ref{fig:TCarray_data} contains the measured and predicted upper temperatures from array A1 over the duration of Test~24 and Figure~\ref{fig:loglog_TC_arrays} shows the log/log scatter plot of the temperatures measured at the different thermocouple locations within the thermocouple arrays compared to the temperatures at the same locations predicted by the FDS simulations for Tests~5--6 and Tests~22--25.
 \begin{figure}[!h]
 	\centering
 	\includegraphics[width=\columnwidth]{Figures/Plots/Validation/Temperature/Test_24_TC_A1_upper}
-	\caption[Plot of the measured and predicted upper temperatures from array A1 during Test~24.]{Plots of measured and predicted ``upper'' temperatures from array A1 during Test~24.}
+	\caption[Plot of the measured and predicted upper temperatures from array A1 during Test~24.]{Plots of measured and predicted ``upper'' temperatures from array A1 during Test~24 in the West Structure.}
 	\label{fig:TCarray_data}
 \end{figure}
 
@@ -156,13 +156,12 @@ In addition to the hot gas layer and ceiling jet temperatures, the measured and 
 
 \clearpage
 \subsection{Gas Species Concentration}
-
 \subsubsection*{\textit{$O_2$} Concentration}
-The measured and predicted oxygen concentrations of Room~1 (fire room) and Room~3 in the East Structure for the duration of Test~3 are shown in Figure~\ref{fig:Test3_O2} as the black and red plots, respectively. Additionally, the summary log/log scatter plot of the predicted oxygen concentrations compared to the corresponding measured oxygen concentrations for Tests~5--6 and Tests~22--25 is shown in Figure~\ref{fig:loglog_O2}.
+The measured and predicted oxygen concentrations in the fire room and north room of the East Structure are plotted over the duration of Test~3 below in Figure~\ref{fig:Test3_O2}. Additionally, the summary log/log scatter plot of the predicted oxygen concentrations compared to the corresponding measured oxygen concentrations for the applicable time periods during Tests~5--6 and Tests~22--25 is shown in Figure~\ref{fig:loglog_O2}.
 \begin{figure}[!h]
 	\centering
 	\includegraphics[width=\columnwidth]{Figures/Plots/Validation/Gas_Concentration/Test_3_O2}
-	\caption[Plots of measured and predicted $O_2$ concentration during Test~3.]{Plots of measured and predicted $O_2$ concentration in the fire room (black plots) and north room (red plots) during Test~3.}
+	\caption[Plots of measured and predicted $O_2$ concentration during Test~3.]{Plots of measured and predicted $O_2$ concentrations in the fire room (black plots) and north room (red plots) of the East Structure during Test~3.}
 	\label{fig:Test3_O2}
 \end{figure}
 
@@ -173,13 +172,14 @@ The measured and predicted oxygen concentrations of Room~1 (fire room) and Room~
 	\label{fig:loglog_O2}
 \end{figure}
 
-\FloatBarrier
+\clearpage
 \subsubsection*{\textit{$CO_2$} Concentration}
-The measured and predicted carbon dioxide concentrations of Room~1 (fire room) and Room~3 in the East Structure for the duration of Test~3 are shown in Figure~\ref{fig:Test3_CO2} as the black and red plots, respectively. Note, the gas sampling system used to measure gas species concentrations could measure $CO_2$ concentrations below 0.10. Thus, data pairs from the applicable time ranges of Tests~5--6 and Tests~22--25 for which the measured $CO_2$ volume fraction was 0.10 were not used to create the summary log/log scatter plot of the predicted carbon dioxide concentrations compared to the corresponding measured carbon dioxide concentrations shown in Figure~\ref{fig:loglog_CO2} below.
+The measured and predicted carbon dioxide concentrations in the fire room and north room of the East Structure are plotted over the duration of Test~3 below in Figure~\ref{fig:Test3_CO2}. The system used to measure the carbon dioxide concentrations could only measure carbon dioxide concentrations up to a maximum of 0.10. Thus, data pairs from the applicable time ranges of Tests~5--6 and Tests~22--25 for which the measured $CO_2$ volume fraction was 0.10 were not used to create the summary log/log scatter plot of the predicted $CO_2$ concentrations compared to the corresponding measured concentrations shown in Figure~\ref{fig:loglog_CO2} below.
+
 \begin{figure}[!h]
 	\centering
 	\includegraphics[width=\columnwidth]{Figures/Plots/Validation/Gas_Concentration/Test_3_CO2}
-	\caption[Plots of measured and predicted $CO_2$ concentration during Test~3.]{Plots of measured and predicted $CO_2$ concentration in the fire room (black plots) and north room (red plots) during Test~3.}
+	\caption[Plots of measured and predicted $CO_2$ concentration during Test~3.]{Plots of measured and predicted $CO_2$ concentration in the fire room (black plots) and north room (red plots) of the East Structure during Test~3.}
 	\label{fig:Test3_CO2}
 \end{figure}
 
@@ -192,12 +192,18 @@ The measured and predicted carbon dioxide concentrations of Room~1 (fire room) a
 
 \clearpage
 \subsection{Gas Velocity}
-Because the gas burner experiments were conducted outdoors, they were subject to environmental conditions, such as wind. To minimize the effect such environmental conditions could have on the analysis of the results, the only gas velocity measurements that are considered in this section are those that were indoors, or well-protected from the exterior. The one gas velocity measurement location in the East Structure that was well-protected from the effects of environmental conditions is the location at the roof vent, the set of three BDPs at the location A10. Tests~5 and 6 were the only East Structure tests that incorporated the roof vent as a ventilation opening. Similarly, there was only one set of BDPs in the West Structure that was well protected from the exterior environment: the set of eight BDPs at the top of the stairs at measurement location A10. All four tests conducted in the West Structure used the stairwell door as a ventilation opening. For Tests~22 and 23, the door was in the open position the entire duration of the experiments, and for Tests~24 and 25, the door was opened at a point during the test. Only the measured and predicted data corresponding to when the door was in the open position is considered in the analysis below. 
+Because the gas burner experiments were conducted outdoors, they were subject to environmental conditions, such as wind. To minimize the effect such environmental conditions could have on the analysis of the results, the only gas velocity measurements that are compared to predicted data are those that were indoors, or well-protected from the exterior. 
+
+The only set of BDPs in the East Structure that was well-protected from the effects of environmental conditions was the set at the roof vent, array A10. Tests~5 and 6 were the only East Structure tests that incorporated the roof vent as a ventilation opening. Figure~\ref{fig:Test5_BDPs} presented below contains the gas velocity data measured at each individual probe in array A10 and the predicted gas velocity data at the same locations plotted over the duration of Test~5.
+
+There was also only one well-protected set of BDPs in the West Structure: the array of eight probes located at the stairway door, array A10. Because the array contained eight measurement locations, plots of the gas velocity data at A10 for each West Structure test were divided between two figures: one of the data from the ``upper'' BDPs corresponding to the four probes closest to the top of the doorway and another of the data from the ``lower'' BDPs corresponding to the other four probes, the four closest to the floor. 
+
+At the start of Tests~5 and 6, the roof vent was closed and then opened as an event later during the test. Similarly, for Tests~24 and 25, the stairway door was initially closed and opened later in the test as an event. For Tests~22 and 23, the stairwell door was opened for the entire duration of the experiment. The data used to produce Figure~\ref{fig:loglog_BDPs}, the log/log scatter plot of the predicted and measured gas velocity data, were limited to the data from the applicable time periods in which airflow through the vent opening at A10 was unrestricted (i.e., when the roof vent or stairway door was opened).   
 
 \begin{figure}[!h]
 	\centering
 	\includegraphics[width=\columnwidth]{Figures/Plots/Validation/Velocity/Test_5_BDP_A10}
-	\caption[Plots of measured and predicted gas velocity through the roof vent during Test~5.]{Plots of measured and predicted gas velocity through the roof vent during Test~5.}
+	\caption[Plots of measured and predicted gas velocity data at BDP locations in A10 during Test~5.]{Plots of measured and predicted gas velocity data at the BDP locations in array A10 at the East Structure roof vent during Test~5.}
 	\label{fig:Test5_BDPs}
 \end{figure}
 
@@ -210,7 +216,7 @@ Because the gas burner experiments were conducted outdoors, they were subject to
 
 \clearpage
 \subsection{Total Heat Flux}
-The heat flux measured by the total heat flux gauges near the stairway door and near the south door on the second floor of the West Structure during Test~23 are plotted with the heat flux data generated by the Test~23 FDS simulation at the same locations in Figure~\ref{fig:Test23_HFs} below. The log/log scatter plot comparing the heat flux data measured by the various heat flux gauges to the heat flux output by FDS at the same locations for the applicable time periods throughout Tests~5--6 and Tests~22--25 is shown in Figure~\ref{fig:loglog_HFs}.  
+The heat flux measured by the total heat flux gauges near the stairway door and near the south door on the second floor of the West Structure are plotted with the predicted heat flux data at the same locations over the duration of Test~23 in Figure~\ref{fig:Test23_HFs} below. The log/log scatter plot generated from the predicted heat flux data and measured heat flux data at the various measurement locations corresponding to the applicable time periods during Tests 5--6 and Tests~22--25 is shown in Figure~\ref{fig:loglog_HFs}.  
 
 \begin{figure}[!h]
 	\centering
@@ -228,9 +234,10 @@ The heat flux measured by the total heat flux gauges near the stairway door and 
 
 \clearpage
 \subsection{Summary}
-Table~\ref{table:stats_compare} compares the model bias factor ($\delta$), the experimental relative standard deviation ($\sigma_E$), and model relative standard deviation ($\sigma_M$) for each data quantity discussed above calculated across all appropriate time durations of the burner experiments to the same values that are listed in FDS Validation Guide for the corresponding data type based on all data within the FDS validation database. 
+Table~\ref{table:stats_compare} compares the model bias factor ($\delta$), the experimental relative standard deviation ($\sigma_E$), and model relative standard deviation ($\sigma_M$) calculated using data from the previously-specified time periods during the six applicable tests for each data quantity discussed above to the values of the same parameters calculated using all the FDS validation data for the same data quantity as stated within the FDS Validation Guide.
+
 \begin{table}[!ht]
-\caption[Calculated $\delta$, $\sigma_E$, and $\sigma_M$ Values Compared to Values Stated in FDS Validation Guide.]{Comparison of Model Bias Factor ($\delta$) and Relative Standard Deviation of Experimental Data ($\sigma_E$) and Model Data ($\sigma_M$) from all Tests and Same Values Listed in FDS Validation Guide for Each Data Type.}
+\caption[Calculated $\delta$, $\sigma_E$, and $\sigma_M$ Values Compared to Values Stated in FDS Validation Guide.]{Model Bias Factor ($\delta$) and Relative Standard Deviation of Experimental Data ($\sigma_E$) and Model Data ($\sigma_M$) Calculated Using the Applicable Predicted and Measured Propane Gas Burner Data Compared to Values of Same Parameters as Provided by the FDS Validation Guide.}
 \begin{center}
 \begin{tabular}{lcccccccc}
 \toprule
@@ -258,9 +265,10 @@ Heat Flux 			& & 0.98  & 0.11 & 0.15 & & 0.98 & 0.11 & 0.24 	\\
 \end{center}
 \label{table:stats_compare}
 \end{table}
+\FloatBarrier
 
-Overall, the agreement between the FDS simulation data and experimental data for the gas burner experiments is consistent with the statistical values given by the FDS Validation Guide. For the hot gas layer temperature, ceiling jet temperature, and heat flux, the model bias calculated for the gas burner simulations is equal to or better than (closer to the ideal value of 1) the overall model bias values given by the FDS Validation Guide. Additionally, the relative standard deviations of the experimental data and model data for these three quantities are equal to or less than (better than) the corresponding values for the same data types listed in the validation guide. 
+Overall, the agreement between the FDS simulation data and experimental data for the considered gas burner experiments is consistent with the statistical values given by the FDS Validation Guide. For the HGL temperature, ceiling jet temperature, and heat flux, the model bias calculated for the gas burner simulations is equal to or better than (closer to the ideal value of 1) the overall model bias values given by the FDS Validation Guide. Additionally, the relative standard deviations of the experimental data and model data for these three quantities are equal to or less than (better than) the corresponding values for the same data types listed in the validation guide. 
 
 The $\delta$, $\sigma_E$, and $\sigma_M$ values produced by the gas burner model and experimental data for both the $O_2$ and $CO_2$ gas concentrations were very close to the values documented in the FDS Validation Guide. The $\sigma_E$ values are equal in both comparisons and the $\sigma_M$ values are greater in magnitude by only 0.01 and 0.02 compared to the validation guide values for oxygen and carbon dioxide concentration, respectively. Finally, based on the data from gas burner simulations, the oxygen concentration model bias is worse (further from the ideal value of 1) by 7~\% and carbon dioxide concentration model bias is worse by 4~\% compared to the documented values in the FDS Validation Guide.
 
-The most significant discrepancy between the documented values and values from the gas burner models is seen in the gas velocity comparison, in which $\sigma_M$ was calculated as being greater than the $\sigma_M$ from the validation guide by a value 0.18. This discrepancy may exist for a few of reasons. First, gas velocity was one of the quantities with the highest uncertainty associated with the experimental measurements. Also, as previously mentioned, the experiments were conducted outdoors, so environmental conditions may have affected the measurements, even though only data from BDPs that were fully inside the structures were considered. All the tests used to calculate the $\delta$, $\sigma_E$, and $\sigma_M$ within the validation guide were conducted in an indoors laboratory setting, which could explain the significantly smaller model relative standard deviation. Finally, due to the nature of the fire environment at the time of the measurements, it's possible that turbulent flow was occurring through the vents (especially the roof vent in Tests~5 and 6) at the time of the measurements. LES CFD models, like FDS, tend to be limited more in terms of accurately measuring turbulent flow than compared to measurements during other conditions.
+The most significant difference between the documented values and values from the gas burner models occur in the gas velocity comparison, in which $\sigma_M$ was calculated as being greater than the $\sigma_M$ from the validation guide by a value 0.18. This discrepancy may exist for a few of reasons. First, gas velocity was one of the quantities with the highest uncertainty associated with the experimental measurements. Also, as previously mentioned, the experiments were conducted outdoors, so environmental conditions may have affected the measurements, even though only data from BDPs that were fully inside the structures were considered in an attempt to limit such effect. All the data used to calculate the $\delta$, $\sigma_E$, and $\sigma_M$ values in the validation guide correspond to experiments that were  conducted in an indoor laboratory setting, which could explain the significantly smaller model relative standard deviation. Finally, due to the nature of the fire environment at the time of the measurements, it's possible that turbulent flow was occurring through the vents (especially the roof vent in Tests~5 and 6) at the time of the measurements. CFD models that use Large-Eddy Simulation (LES), the default mode of operation for FDS, tend to be limited more in terms of accurately measuring turbulent flow than compared to measurements during other conditions.
