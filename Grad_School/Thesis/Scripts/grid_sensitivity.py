@@ -24,13 +24,9 @@ OG_data_dir = '../FDS_Output_Files/Official_Repo_Files/'
 # Location of file with timing information
 all_times_file = '../Experimental_Data/Plot_Times.csv'
 
-# Location of test description file
-info_file = '../Experimental_Data/Description_of_Experiments.csv'
-
 # Load exp. timings and description file
 all_times = pd.read_csv(all_times_file)
 all_times = all_times.set_index('Time')
-info = pd.read_csv(info_file, index_col=3)
 
 #  =================
 #  = Specify plots =
@@ -240,21 +236,21 @@ for test in test_ls:
             for name in channel_ls:
                 plt.plot(grid_L.index.values.astype(float), 
                     grid_L[name].values.astype(float),
-                    marker='s', markevery=int(x_max/100), mew=2, mec='none', ms=8, 
+                    marker='s', markevery=int(x_max/100), mew=2, mec='none', ms=10, 
                     ls='--', lw=2, label=name+'(14 cm Grid)')
                 print ('    Plotting '+name+' (14 cm Grid) Data')
 
             for name in channel_ls:
                 plt.plot(grid_M.index.values.astype(float), 
                     grid_M[name].values.astype(float),
-                    marker='o', markevery=int(x_max/100), mew=2, mec='none', ms=8, 
+                    marker='o', markevery=int(x_max/100), mew=2, mec='none', ms=10, 
                     ls='-', lw=2, label=name+'(10 cm Grid)')
                 print ('    Plotting '+name+' (10 cm Grid) Data')               
 
             for name in channel_ls:
                 plt.plot(grid_S.index.values.astype(float), 
                     grid_S[name].values.astype(float),
-                    marker='^', markevery=int(x_max/100), mew=2, mec='none', ms=8, 
+                    marker='^', markevery=int(x_max/100), mew=2, mec='none', ms=10, 
                     ls=':', lw=2, label=name+' ('+S_size[1:]+' Grid)')
                 print ('    Plotting '+name+'  ('+S_size[1:]+' Grid) Data')
             
@@ -291,20 +287,20 @@ for test in test_ls:
                 for name in channel_ls:
                     plt.plot(grid_OG.index.values.astype(float), 
                         grid_OG[name].values.astype(float),
-                        marker='s', markevery=int(x_max/100), mew=2, mec='none', ms=7, 
+                        marker='s', markevery=int(x_max/100), mew=2, mec='none', ms=10, 
                         ls='--', lw=1.5, label=name+'(OG Grid)')
                     print ('    Plotting '+name+' (OG Grid) Data')
 
                 for name in channel_ls:
                     plt.plot(grid_M.index.values.astype(float), 
                         grid_M[name].values.astype(float),
-                        marker='o', markevery=int(x_max/100), mew=1.5, mec='none', ms=7, 
+                        marker='o', markevery=int(x_max/100), mew=1.5, mec='none', ms=10, 
                         ls='-', lw=1.5, label=name+'(10 cm Grid)')
                     print ('    Plotting '+name+' (10 cm Grid) Data')
                 
                 if legend:              
                     handles1, labels1 = ax1.get_legend_handles_labels()
-                    plt.legend(handles1, labels1, loc=leg_loc, fontsize=9, handlelength=3)
+                    plt.legend(handles1, labels1, loc=leg_loc, fontsize=10, handlelength=3)
 
                 plt.grid(True)
                 # Save plot to file
@@ -340,17 +336,17 @@ for test in test_ls:
                     #     L_name = name
 
                     plt.plot(grid_L.index.values.astype(float), grid_L[name].values.astype(float),
-                        marker='s', markevery=int(x_max/100), mew=2, mec='none', ms=8, 
+                        marker='s', markevery=int(x_max/100), mew=2, mec='none', ms=10, 
                         ls='--', lw=2, label=name+'(14 cm Grid)')    
                     print ('    Plotting '+name+' (14 cm Grid) Data')
 
                     plt.plot(grid_M.index.values.astype(float), grid_M[name].values.astype(float),
-                        marker='o', markevery=int(x_max/100), mew=2, mec='none', ms=8, 
+                        marker='o', markevery=int(x_max/100), mew=2, mec='none', ms=10, 
                         ls='-', lw=2, label=name+'(10 cm Grid)')
                     print ('    Plotting '+name+' (10 cm Grid) Data')
 
                     plt.plot(grid_S.index.values.astype(float), grid_S[name].values.astype(float),
-                        marker='^', markevery=int(x_max/100), mew=2, mec='none', ms=8, 
+                        marker='^', markevery=int(x_max/100), mew=2, mec='none', ms=10, 
                         ls='-.', lw=2, label=name+'('+S_size[1:]+' Grid)')            
                     print ('    Plotting '+name+' ('+S_size[1:]+' Grid) Data')
 
@@ -375,7 +371,7 @@ for test in test_ls:
             # plt.xlim([0, x_max])
 
             handles1, labels1 = ax1.get_legend_handles_labels()
-            plt.legend(handles1, labels1, loc='upper right', fontsize=9, handlelength=3)
+            plt.legend(handles1, labels1, loc='upper right', fontsize=10, handlelength=3)
 
             # Save plot to file
             print ('    Saving '+test+'_cjet_'+str(i+1))

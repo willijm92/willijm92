@@ -30,7 +30,7 @@ from matplotlib import colors as mcolors
 
 # Specify name to run a single test
 specify_test  = False
-specific_name = 'Test_6'
+specific_name = 'Test_4'
 
 # Specify structure to plot data from specific structure 
 specify_struct  = False
@@ -61,7 +61,7 @@ save_dir = '../Plots/Validation/'
 plot_CO2     = False
 plot_O2      = False
 plot_TC      = False
-plot_HF      = False
+plot_HF      = True
 plot_BDP     = True
 plot_HGL     = False
 plot_cjetTC  = False
@@ -108,7 +108,9 @@ def setup_fig(color_list, y_label, x_max):
 	plt.ylabel(y_label, fontsize=20)
 	ax1.set_xlim(0,x_max)
 	plt.xlabel('Time (s)', fontsize=20)
-	fig.set_size_inches(10, 8)
+	# presentation plots
+	fig.set_size_inches(10, 7)
+	# fig.set_size_inches(10, 8)
 	plt.xticks(fontsize=16)
 	plt.yticks(fontsize=16)
 
@@ -130,6 +132,9 @@ if plot_BDP:
 	plot_types.append('BDP_')
 if plot_HGL:
 	HGL_test_plots = []
+
+# font size for presentation plots
+leg_font = 12
 
 # These are the "Tableau 20" colors as RGB.
 tableau20 = [(31, 119, 180), (174, 199, 232), (255, 127, 14), (255, 187, 120),
@@ -254,7 +259,7 @@ for f in os.listdir(exp_data_dir):
 						group = column[:-2]
 						channel_ls = []
 						split_plot = True
-						plot_colors = ['0.35',tableau20[6],tableau20[0],tableau20[11]]					
+						plot_colors = ['0.35','0.35',tableau20[6],tableau20[6],tableau20[0],tableau20[0],tableau20[5],tableau20[5]]					
 						for i in range(1,9):
 							channel_name = group+'_'+str(i)
 							try: 
@@ -284,17 +289,17 @@ for f in os.listdir(exp_data_dir):
 						group = column[:-2]
 						channel_ls = []
 						if len(test_name) < 7:
-							plot_colors = ['0.35',tableau20[6],tableau20[0]]
+							plot_colors = ['0.35','0.35',tableau20[6],tableau20[6],tableau20[0],tableau20[0]]
 							if test_name == 'Test_5':
 								legend_loc = 'upper left'
 							else:
 								legend_loc = 'lower left'
+							ncols_leg = 3
 						else:
 							split_plot = True
-							plot_colors = ['0.35',tableau20[6],tableau20[0],tableau20[11]]
+							plot_colors = ['0.35','0.35',tableau20[6],tableau20[6],tableau20[0],tableau20[0],tableau20[5],tableau20[5]]	
 							legend_loc = 'lower right'
-
-						ncols_leg = 2
+							ncols_leg = 2
 
 						for i in range(1,9):
 							channel_name = group+'_'+str(i)
@@ -316,7 +321,7 @@ for f in os.listdir(exp_data_dir):
 						else:   # West structure
 							group = column[:-2]
 							channel_ls = ['HF_1_H', 'HF_1_V', 'HF_2_H', 'HF_2_V']
-						plot_colors = ['0.35',tableau20[6],tableau20[0],tableau20[11]]
+						plot_colors = ['0.35','0.35',tableau20[6],tableau20[6],tableau20[0],tableau20[0],tableau20[5],tableau20[5]]	
 						err_colors = cycle(plot_colors)
 						data_type = 'Heat_Flux' 
 						y_label = r'Heat Flux (kW/m$^2$)'
@@ -344,7 +349,7 @@ for f in os.listdir(exp_data_dir):
 						group = 'CO2'
 						channel_ls = ['CO2_A', 'CO2_B']
 						data_type = 'Gas_Concentration'
-						plot_colors = ['0.35',tableau20[6]]
+						plot_colors = ['0.35','0.35',tableau20[6],tableau20[6]]
 						y_label = 'Volume Fraction'
 						exp_error = 0.12
 						FDS_error = 0.08
@@ -355,7 +360,7 @@ for f in os.listdir(exp_data_dir):
 						group = 'O2'
 						channel_ls = ['O2_A', 'O2_B']
 						data_type = 'Gas_Concentration'
-						plot_colors = ['0.35',tableau20[6]]
+						plot_colors = ['0.35','0.35',tableau20[6],tableau20[6]]
 						y_label = 'Volume Fraction'
 						exp_error = 0.12
 						FDS_error = 0.08
@@ -379,34 +384,43 @@ for f in os.listdir(exp_data_dir):
 
 						ax1 = setup_fig(plot_colors,y_label,x_max)
 
-						# Plot experimental data for each channel in sensor group
-						for name in channel_ls1:
-							x = exp_data.index.values.astype(float)
-							y = exp_data[name].values.astype(float)
-							exp_max = np.max(y)
-							error_index = np.argmax(y)*10
-							plt.plot(x, y, ls='-', lw=2, label='Exp '+name)
-							plt.errorbar(error_index, exp_max, yerr=exp_max*exp_error, c=next(err_colors), fmt='o', ms=4, capthick=1.25,lw=1.25, capsize=8)
-							plotted_channels.append(name)
-						print ('    Plotted '+group+' upper channels Exp Data')
-
 						if upper_customize:
 							if custom_adj == 'None':
 								offset = 0.0
 							else:
 								offset = float(custom_adj)
 						else:
-							offset = 0.0
+							offset = 0.0	
 
-						# Plot FDS data for each channel in sensor group          
+						# Plot data for each channel in sensor group
 						for name in channel_ls1:
+							# Plot experimental data
+							x = exp_data.index.values.astype(float)
+							y = exp_data[name].values.astype(float)
+							exp_max = np.max(y)
+							error_index = np.argmax(y)*10
+							plt.plot(x, y, ls='-', lw=2, label='Exp '+name)
+							plt.errorbar(error_index, exp_max, yerr=exp_max*exp_error, c=next(err_colors), fmt='o', ms=4, capthick=1.25,lw=1.25, capsize=8)
+				
+							# Plot FDS Data
 							x = FDS_data.index.values.astype(float)
 							y = FDS_data[name].values.astype(float)+offset
 							FDS_max = np.max(y)
 							error_index = np.argmax(y)*10
 							plt.plot(x, y, ls='--', lw=2, label='FDS '+name)
 							plt.errorbar(error_index, FDS_max, yerr=FDS_max*FDS_error, c=next(err_colors), fmt='o', ms=4, capthick=1.25,lw=1.25, capsize=8)
-						print ('    Plotted ' + group + ' upper channels FDS Data')
+							plotted_channels.append(name)
+						print ('    Plotted '+group+' upper channels')
+
+						# # Plot FDS data for each channel in sensor group          
+						# for name in channel_ls1:
+						# 	x = FDS_data.index.values.astype(float)
+						# 	y = FDS_data[name].values.astype(float)+offset
+						# 	FDS_max = np.max(y)
+						# 	error_index = np.argmax(y)*10
+						# 	plt.plot(x, y, ls='--', lw=2, label='FDS '+name)
+						# 	plt.errorbar(error_index, FDS_max, yerr=FDS_max*FDS_error, c=next(err_colors), fmt='o', ms=4, capthick=1.25,lw=1.25, capsize=8)
+						# print ('    Plotted ' + group + ' upper channels FDS Data')
 
 						plt.grid(color='0.75', linestyle='-.', linewidth=1)
 
@@ -420,7 +434,7 @@ for f in os.listdir(exp_data_dir):
 						events = events[~events.str.startswith('#')]
 						[plt.axvline(_x, color='0.4', lw=1) for _x in events.index.values]
 						ax3.set_xticks(events.index.values)
-						plt.setp(plt.xticks()[1], rotation=60)
+						plt.setp(plt.xticks()[1], rotation=45)
 						ax3.set_xticklabels(events.values, fontsize=10, ha='left')
 						plt.xlim([0, x_max])
 
@@ -430,7 +444,7 @@ for f in os.listdir(exp_data_dir):
 									legend_loc = custom_loc
 								ncols_leg = int(custom_ncols)
 							handles1, labels1 = ax1.get_legend_handles_labels()
-							plt.legend(handles1, labels1, loc=legend_loc, ncol=ncols_leg, fontsize=10, handlelength=3)
+							plt.legend(handles1, labels1, loc=legend_loc, ncol=ncols_leg, fontsize=leg_font, handlelength=3)
 
 						# Save plot to file
 						print ('    => Saving ' + group + ' upper channels figure')
@@ -441,31 +455,39 @@ for f in os.listdir(exp_data_dir):
 
 						ax1 = setup_fig(plot_colors,y_label,x_max)
 
-						# Plot experimental data for each channel in sensor group
+						if lower_customize:
+							offset = float(custom_adj)
+						else:
+							offset = 0.0
+						# Plot data for each channel in sensor group
 						for name in channel_ls2:
+							# Plot Exp Data
 							x = exp_data.index.values.astype(float)
 							y = exp_data[name].values.astype(float)
 							exp_max = np.max(y)
 							error_index = np.argmax(y)*10
 							plt.plot(x, y, ls='-', lw=2, label='Exp '+name)
 							plt.errorbar(error_index, exp_max, yerr=exp_max*exp_error, c=next(err_colors), fmt='o', ms=4, capthick=1.25,lw=1.25, capsize=8)	
-							plotted_channels.append(name)
-						print ('    Plotted '+group+' lower channels Exp Data')
 
-						if lower_customize:
-							offset = float(custom_adj)
-						else:
-							offset = 0.0
-
-						# Plot FDS data for each channel in sensor group          
-						for name in channel_ls2:
+							# Plot FDS Data
 							x = FDS_data.index.values.astype(float)
 							y = FDS_data[name].values.astype(float)+offset
 							FDS_max = np.max(y)
 							error_index = np.argmax(y)*10
 							plt.plot(x, y, ls='--', lw=2, label='FDS '+name)
-							plt.errorbar(error_index, exp_max, yerr=exp_max*exp_error, c=next(err_colors), fmt='o', ms=4, capthick=1.25,lw=1.25, capsize=8)	
-						print ('    Plotted ' + group + ' lower channels FDS Data')
+							plt.errorbar(error_index, FDS_max, yerr=FDS_max*FDS_error, c=next(err_colors), fmt='o', ms=4, capthick=1.25,lw=1.25, capsize=8)	
+							plotted_channels.append(name)
+						print ('    Plotted '+group+' lower channels')
+
+						# # Plot FDS data for each channel in sensor group          
+						# for name in channel_ls2:
+						# 	x = FDS_data.index.values.astype(float)
+						# 	y = FDS_data[name].values.astype(float)+offset
+						# 	FDS_max = np.max(y)
+						# 	error_index = np.argmax(y)*10
+						# 	plt.plot(x, y, ls='--', lw=2, label='FDS '+name)
+						# 	plt.errorbar(error_index, exp_max, yerr=exp_max*exp_error, c=next(err_colors), fmt='o', ms=4, capthick=1.25,lw=1.25, capsize=8)	
+						# print ('    Plotted ' + group + ' lower channels FDS Data')
 
 						plt.grid(color='0.75', linestyle='-.', linewidth=1)
 
@@ -479,7 +501,7 @@ for f in os.listdir(exp_data_dir):
 						events = events[~events.str.startswith('#')]
 						[plt.axvline(_x, color='0.4', lw=1) for _x in events.index.values]
 						ax3.set_xticks(events.index.values)
-						plt.setp(plt.xticks()[1], rotation=60)
+						plt.setp(plt.xticks()[1], rotation=45)
 						ax3.set_xticklabels(events.values, fontsize=10, ha='left')
 						plt.xlim([0, x_max])
 
@@ -489,7 +511,7 @@ for f in os.listdir(exp_data_dir):
 									legend_loc = custom_loc
 								ncols_leg = int(custom_ncols)
 							handles1, labels1 = ax1.get_legend_handles_labels()
-							plt.legend(handles1, labels1, loc=legend_loc, ncol=ncols_leg, fontsize=10, handlelength=3)
+							plt.legend(handles1, labels1, loc=legend_loc, ncol=ncols_leg, fontsize=leg_font, handlelength=3)
 
 						# Save plot to file
 						print ('    => Saving ' + group + ' lower channels figure')
@@ -506,8 +528,9 @@ for f in os.listdir(exp_data_dir):
 							# else:
 							# 	ax1.set_ylim(0,0.15)
 
-						# Plot experimental data for each channel in sensor group
+						# Plot data for each channel in sensor group
 						for name in channel_ls:
+							# Plot exp data
 							x = exp_data.index.values.astype(float)
 							if name == 'HF_A5':
 								y = exp_data[name].values.astype(float)*-1.
@@ -522,15 +545,8 @@ for f in os.listdir(exp_data_dir):
 							 	error_index = np.argmin(y)*10
 							plt.plot(x, y, ls='-', lw=2, label='Exp '+name)
 							plt.errorbar(error_index, exp_max, yerr=exp_max*exp_error, c=next(err_colors), fmt='o', ms=4, capthick=1.25,lw=1.25, capsize=8)
-							plotted_channels.append(name)
-						print ('    Plotted '+group+' Exp Data')
 
-						# err_colors = cycle(plot_colors)
-						# line_colors = cycle(plot_colors)
-
-						 
-						# Plot FDS data for each channel in sensor group          
-						for name in channel_ls:
+							# Plot FDS Data
 							x = FDS_data.index.values.astype(float)
 							y = FDS_data[name].values.astype(float)
 							if name[:2] != 'O2':
@@ -541,7 +557,26 @@ for f in os.listdir(exp_data_dir):
 								error_index = np.argmin(y)*10
 							plt.plot(x, y, ls='--', lw=2, label='FDS '+name)
 							plt.errorbar(error_index, FDS_max, yerr=FDS_max*FDS_error, c=next(err_colors), fmt='o', ms=4, ls='--',capthick=1.25,lw=1.25, capsize=8)
-						print ('    Plotted ' + group + ' FDS Data')
+							plotted_channels.append(name)
+						print ('    Plotted '+group+' Data')
+
+						# err_colors = cycle(plot_colors)
+						# line_colors = cycle(plot_colors)
+
+						 
+						# # Plot FDS data for each channel in sensor group          
+						# for name in channel_ls:
+						# 	x = FDS_data.index.values.astype(float)
+						# 	y = FDS_data[name].values.astype(float)
+						# 	if name[:2] != 'O2':
+						# 		FDS_max = np.max(y[:200])
+						# 		error_index = np.argmax(y[:200])*10
+						# 	else:
+						# 		FDS_max = np.min(y)
+						# 		error_index = np.argmin(y)*10
+						# 	plt.plot(x, y, ls='--', lw=2, label='FDS '+name)
+						# 	plt.errorbar(error_index, FDS_max, yerr=FDS_max*FDS_error, c=next(err_colors), fmt='o', ms=4, ls='--',capthick=1.25,lw=1.25, capsize=8)
+						# print ('    Plotted ' + group + ' FDS Data')
 
 						plt.grid(color='0.75', linestyle='-.', linewidth=1)
 
@@ -555,7 +590,7 @@ for f in os.listdir(exp_data_dir):
 						events = events[~events.str.startswith('#')]
 						[plt.axvline(_x, color='0.4', lw=1) for _x in events.index.values]
 						ax3.set_xticks(events.index.values)
-						plt.setp(plt.xticks()[1], rotation=60)
+						plt.setp(plt.xticks()[1], rotation=45)
 						ax3.set_xticklabels(events.values, fontsize=10, ha='left')
 						plt.xlim([0, x_max])
 						# Increase figure size for plot labels at top
@@ -567,7 +602,7 @@ for f in os.listdir(exp_data_dir):
 									legend_loc = custom_loc
 								ncols_leg = int(custom_ncols)              
 							handles1, labels1 = ax1.get_legend_handles_labels()
-							plt.legend(handles1, labels1, loc=legend_loc, ncol=ncols_leg, fontsize=10, handlelength=3)
+							plt.legend(handles1, labels1, loc=legend_loc, ncol=ncols_leg, fontsize=leg_font, handlelength=3)
 
 						# Save plot to file
 						if data_type == 'Heat_Flux':
@@ -632,7 +667,7 @@ for f in os.listdir(exp_data_dir):
 					events = events[~events.str.startswith('#')]
 					[plt.axvline(_x, color='0.4', lw=1) for _x in events.index.values]
 					ax3.set_xticks(events.index.values)
-					plt.setp(plt.xticks()[1], rotation=60)
+					plt.setp(plt.xticks()[1], rotation=45)
 					ax3.set_xticklabels(events.values, fontsize=10, ha='left')
 					plt.xlim([0, x_max])
 
@@ -655,7 +690,7 @@ for f in os.listdir(exp_data_dir):
 						legend_loc = 'upper right'
 
 					handles1, labels1 = ax1.get_legend_handles_labels()
-					plt.legend(handles1, labels1, loc=legend_loc, ncol=ncols_leg, fontsize=10, handlelength=3)
+					plt.legend(handles1, labels1, loc=legend_loc, ncol=ncols_leg, fontsize=leg_font, handlelength=3)
 					
 					# Save plot to file
 					print ('    Saving '+test_name+'_cjet_'+str(i+1))
@@ -823,7 +858,7 @@ for f in os.listdir(exp_data_dir):
 			events = events[~events.str.startswith('#')]
 			[plt.axvline(_x, color='0.4', lw=1) for _x in events.index.values]
 			ax3.set_xticks(events.index.values)
-			plt.setp(plt.xticks()[1], rotation=60)
+			plt.setp(plt.xticks()[1], rotation=45)
 			ax3.set_xticklabels(events.values, fontsize=10, ha='left')
 			plt.xlim([0, x_max])
 			ax1.set_ylim([0,overall_max*1.05])
@@ -834,7 +869,7 @@ for f in os.listdir(exp_data_dir):
 				legend_loc = 'upper right'
 
 			handles1, labels1 = ax1.get_legend_handles_labels()
-			plt.legend(handles1, labels1, loc=legend_loc, fontsize=10, handlelength=3)
+			plt.legend(handles1, labels1, loc=legend_loc, fontsize=leg_font, handlelength=3)
 
 			# Save plot to file
 			fig_name = test_name+'_HGL.pdf'
