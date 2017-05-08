@@ -77,6 +77,8 @@ def setup_fig(color_list, y_label, x_max):
 
     return ax1
 
+
+leg_font = 12
 #  ==========================
 #  = Loop through directory =
 #  ==========================
@@ -207,7 +209,7 @@ for test in test_ls:
                 y_label = 'Volume Fraction'
                 leg_loc = 'upper right'
 
-            elif 'CO2_' in column:
+            elif 'CO2_' == column[:4]:
                 group = 'CO2'
                 channel_ls = ['CO2_A', 'CO2_B']
                 plotted_groups.append('CO2_')
@@ -216,12 +218,12 @@ for test in test_ls:
                 y_label = 'Volume Fraction'
                 leg_loc = 'upper right'
 
-            elif 'O2_' in column:
+            elif 'O2_' == column[:3]:
                 group = 'O2'
                 channel_ls = ['O2_A', 'O2_B']
                 plotted_groups.append('O2_')
                 data_type = 'Gas_Concentration'
-                plot_colors = ['0.3',tableau20[6]]
+                plot_colors = ['0.3','0.3','0.3',tableau20[6],tableau20[6],tableau20[6]]
                 y_label = 'Volume Fraction'
                 leg_loc = 'lower right'
 
@@ -230,29 +232,39 @@ for test in test_ls:
             if group == 'O2':
                 ax1.set_ylim(0,0.23)
                 legend_loc = 'lower right'
+                leg_cols = 1
             else:
                 legend_loc = 'upper right'
+                leg_cols = 1
 
             for name in channel_ls:
                 plt.plot(grid_L.index.values.astype(float), 
                     grid_L[name].values.astype(float),
                     marker='s', markevery=int(x_max/100), mew=2, mec='none', ms=10, 
                     ls='--', lw=2, label=name+'(14 cm Grid)')
-                print ('    Plotting '+name+' (14 cm Grid) Data')
-
-            for name in channel_ls:
                 plt.plot(grid_M.index.values.astype(float), 
                     grid_M[name].values.astype(float),
                     marker='o', markevery=int(x_max/100), mew=2, mec='none', ms=10, 
                     ls='-', lw=2, label=name+'(10 cm Grid)')
-                print ('    Plotting '+name+' (10 cm Grid) Data')               
-
-            for name in channel_ls:
                 plt.plot(grid_S.index.values.astype(float), 
                     grid_S[name].values.astype(float),
                     marker='^', markevery=int(x_max/100), mew=2, mec='none', ms=10, 
                     ls=':', lw=2, label=name+' ('+S_size[1:]+' Grid)')
-                print ('    Plotting '+name+'  ('+S_size[1:]+' Grid) Data')
+            print ('    Plotting '+name+' Data')
+
+            # for name in channel_ls:
+            #     plt.plot(grid_M.index.values.astype(float), 
+            #         grid_M[name].values.astype(float),
+            #         marker='o', markevery=int(x_max/100), mew=2, mec='none', ms=10, 
+            #         ls='-', lw=2, label=name+'(10 cm Grid)')
+            #     print ('    Plotting '+name+' (10 cm Grid) Data')               
+
+            # for name in channel_ls:
+            #     plt.plot(grid_S.index.values.astype(float), 
+            #         grid_S[name].values.astype(float),
+            #         marker='^', markevery=int(x_max/100), mew=2, mec='none', ms=10, 
+            #         ls=':', lw=2, label=name+' ('+S_size[1:]+' Grid)')
+            #     print ('    Plotting '+name+'  ('+S_size[1:]+' Grid) Data')
             
             plt.grid(color='0.75', linestyle='-.', linewidth=1)
 
@@ -271,7 +283,7 @@ for test in test_ls:
             # plt.xlim([0, x_max])
 
             handles1, labels1 = ax1.get_legend_handles_labels()
-            plt.legend(handles1, labels1, loc=legend_loc, fontsize=10, handlelength=3)
+            plt.legend(handles1, labels1, loc=legend_loc, fontsize=leg_font, ncol=leg_cols, handlelength=3)
             # Save plot to file
             print ('    Saving ' + group + ' figure')
             print
@@ -300,7 +312,7 @@ for test in test_ls:
                 
                 if legend:              
                     handles1, labels1 = ax1.get_legend_handles_labels()
-                    plt.legend(handles1, labels1, loc=leg_loc, fontsize=10, handlelength=3)
+                    plt.legend(handles1, labels1, loc=leg_loc, fontsize=leg_font, handlelength=3)
 
                 plt.grid(True)
                 # Save plot to file
@@ -371,7 +383,13 @@ for test in test_ls:
             # plt.xlim([0, x_max])
 
             handles1, labels1 = ax1.get_legend_handles_labels()
-            plt.legend(handles1, labels1, loc='upper right', fontsize=10, handlelength=3)
+            if test == 'Test_04':
+                plt.legend(handles1, labels1, loc='upper right',ncol=1, fontsize=12, handlelength=3)
+            else:
+                if i > 0:
+                    plt.legend(handles1, labels1, loc='upper left',ncol=1, fontsize=10, handlelength=3)
+                else:
+                    plt.legend(handles1, labels1, bbox_to_anchor=(0.2,0.5),ncol=1, fontsize=12, handlelength=3)
 
             # Save plot to file
             print ('    Saving '+test+'_cjet_'+str(i+1))

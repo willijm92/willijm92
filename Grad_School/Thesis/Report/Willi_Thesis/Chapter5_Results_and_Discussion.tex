@@ -18,11 +18,11 @@ Three different types of figures are presented in this chapter to assist with th
 
 \section{Mesh Sensitivity Studies}
 \label{sec:mesh_studies}
-Figures~\ref{fig:east_O2_sensitivity}--\ref{fig:west_cjet_sensitivity} show the oxygen volume fractions and ceiling jet temperatures output by FDS simulations of Test~4 and Test~25 using the coarse, medium, and fine grid sizes across the computational domain.
+Figures~\ref{fig:east_O2_sensitivity}--\ref{fig:west_cjet_sensitivity} show the oxygen volume fractions and ceiling jet temperatures output by the FDS simulations of Test~4 and Test~25 using the coarse, medium, and fine grid sizes across the computational domain.
 \begin{figure}[!h]
 	\centering
 	\includegraphics[width=\columnwidth]{Figures/Plots/Grid_Sensitivity/Gas_Concentration/Test_04_O2}
-	\caption[$O_2$ concentrations for East Structure simulation with different grid cell sizes.]{$O_2$ concentrations output by the FDS simulation of Test~4 in the East Structure using three different grid cell sizes.}
+	\caption[O$_2$ concentrations for East Structure simulation with different grid cell sizes.]{O$_2$ concentrations output by the FDS simulation of Test~4 in the East Structure using three different grid cell sizes.}
 	\label{fig:east_O2_sensitivity}
 \end{figure}
 
@@ -38,16 +38,16 @@ Figures~\ref{fig:east_O2_sensitivity}--\ref{fig:west_cjet_sensitivity} show the 
 \begin{figure}[!h]
 	\centering
 	\includegraphics[width=\columnwidth]{Figures/Plots/Grid_Sensitivity/Gas_Concentration/Test_25_O2}
-	\caption[$O_2$ concentrations for West Structure simulation with different grid cell sizes.]{$O_2$ concentrations output by the FDS simulation of Test~25 in the West Structure using three different grid cell sizes.}
+	\caption[O$_2$ concentrations for West Structure simulation with different grid cell sizes.]{O$_2$ concentrations output by the FDS simulation of Test~25 in the West Structure using three different grid cell sizes.}
 	\label{fig:west_O2_sensitivity}
 \end{figure}
 
 \begin{figure}[!h]
 	\centering
-	\includegraphics[width=0.87\columnwidth]{Figures/Plots/Grid_Sensitivity/Temperature/Test_25_cjet_1}
+	\includegraphics[width=0.86\columnwidth]{Figures/Plots/Grid_Sensitivity/Temperature/Test_25_cjet_1}
 	\\~\\
-	\includegraphics[width=0.87\columnwidth]{Figures/Plots/Grid_Sensitivity/Temperature/Test_25_cjet_2}
-	\caption[Ceiling jet temperatures for West Structure simulation with different grid cell sizes.]{Ceiling jet temperatures output by the FDS simulation of Test~25 in the West Structure using three different grid cell sizes.}
+	\includegraphics[width=0.86\columnwidth]{Figures/Plots/Grid_Sensitivity/Temperature/Test_25_cjet_2}
+	\caption[Ceiling jet temperatures for West Structure simulation with different grid cell sizes.]{Ceiling jet temperatures output by the FDS simulation of Test~25 on the first floor (top) and second floor (bottom) of the West Structure using three different grid cell sizes.}
 	\label{fig:west_cjet_sensitivity}
 \end{figure}
 
@@ -55,10 +55,28 @@ Figures~\ref{fig:east_O2_sensitivity}--\ref{fig:west_cjet_sensitivity} show the 
 
 The plots presented above show that significant differences occur at various times between the model data produced using the coarse grid and the same model data produced using the medium and fine grid resolutions. For example, looking at Figure~\ref{fig:west_O2_sensitivity}, the oxygen volume fraction data on the first floor of the West Structure output by the coarse grid deviates significantly from the data produced by medium and fine grid sizes around 300 seconds. Furthermore, the oxygen volume fraction data on the second floor output using the coarse grid drops to a minimum of approximately 0.18 during the portion of the simulation in which the burners are ignited, while the volume fraction data output using the medium and fine grids drop to a similar minimum that is around 0.13. 
 
-Looking at the oxygen volume fraction and ceiling jet temperature data output by the East Structure simulation, Figures~\ref{fig:east_O2_sensitivity} and \ref{fig:east_cjet_sensitivity}, respectively, for different mesh resolutions, the data from the coarse grid exhibits more agreement with the medium and fine grid data than the West Structure simulation data plots. However, significant differences still arise between the coarse grid data and the simulation data produced by the medium and fine resolutions, such as the larger decline in ceiling jet temperature seen around 400~seconds.   
+Looking at the oxygen volume fraction and ceiling jet temperature data output by the East Structure simulation, Figures~\ref{fig:east_O2_sensitivity} and \ref{fig:east_cjet_sensitivity}, respectively, for the different mesh resolutions, the data from the coarse grid exhibits more agreement with the medium and fine grid data than the West Structure simulation data plots. However, significant differences still arise between the coarse grid data and the simulation data produced by the medium and fine resolutions, such as the larger decline in ceiling jet temperature seen around 400~seconds. 
 
+Table~\ref{table:sensitivity_times} lists the run times for the Test~4 and Test~25 simulations for each grid cell size. The total run time for the Test~4 simulation using the fine grid was more than 10 times the total run time for the Test~4 simulation using the medium grid. Additionally, using the fine grid cell size of 7~cm with the Test~25 simulation increased the run time by more than three times compared to the medium grid cell size, which produced a total simulation run time of 27.8 hours.  
+\begin{table}[!ht]
+\caption{Total Wall Clock Time for Different Grid Cell Sizes Applied for Mesh Sensitivity Study.}
+\begin{center}
+\begin{tabular}{ccc}
+\toprule
+\multirow{2}{*}{\textbf{Applied Mesh}}  &  \textbf{Test~4 Simulation}   &  \textbf{Test~25 Simulation}   \\
+                                        &  \textbf{Run Time (hours)}    &  \textbf{Run Time (hours)}     \\
+\midrule
+Coarse (14~cm)                          &   4.8                         &   6.8       \\
+Medium (10~cm)                          &   22.1                        &   27.8      \\
+Fine (5~cm or 7~cm)                     &   241.3                       &   90.6      \\
+\bottomrule
+\end{tabular}
+\end{center}
+\label{table:sensitivity_times}
+\end{table}
+\FloatBarrier
 % Notice in Figure~\ref{fig:west_cjet_sensitivity}, the 14~cm grid was not refined enough to define the thermocouple locations at 0.03~m below the ceiling. 
-Due to the large discrepancies between the coarse grid data and the data produced by the other two mesh resolutions, the coarse grid was considered too coarse for all simulations of the burner experiments. However, there doesn't appear to be any significant differences between the simulation data produced by the medium mesh resolution and the simulation data produced by the fine mesh resolution. As a result, the medium grid cell size of 10~cm was selected for all nine FDS simulations.
+Due to the large discrepancies between the coarse grid data and the data produced by the other two mesh resolutions, the coarse grid was considered too coarse for all simulations of the burner experiments. However, there doesn't appear to be any differences between the simulation data output by the medium mesh resolution and the fine mesh resolution that are significant enough to justify the increase in computational run time between the two grid cell sizes. As a result, the medium grid cell size of 10~cm was selected for all nine FDS simulations.
 
 \section{FDS Model Data Compared to Experimental Data}
 In the following subsections, the temperature, gas species concentration, gas velocity, and heat flux measurements predicted by the FDS simulations are compared to the corresponding sensor data measured during the propane burner experiments. Two different types of graphs are included to aid in the comparison of the model data and experimental data. The first type is similar to the mesh sensitivity study figures in that it shows the simulation data and experimental data (time-averaged over 10~seconds) plotted over the duration of an experiment for a specific data type at a specific location(s). Only one plot is presented for each discussed data quantity; the remaining figures of the discussed data types plotted over the duration each experiment for the different measurement locations are included in Appendix~\ref{chap:exp_FDS_plots}.
@@ -74,7 +92,7 @@ Note, the natural logarithm function is used so that the variance of the random 
 \label{eq:least_sqrs}
 	\widetilde{\sigma}_m^2 + \widetilde{\sigma}_E^2 \approx \frac{1}{n-1}\sum_{i=1}^n \left[ \ln(M_i/E_i) - \overline{\ln(M/E)} \right]^2
 \end{equation}
-Using the pair of measured and predicted values with the known $\widetilde{\sigma}_E$, the expression on the right can be evaluated. Eq.~\ref{eq:least_sqrs} imposes a constraint on the experimental uncertainty value, $\widetilde{\sigma}_E$, and in combination with a second constraint that $\widetilde{\sigma}_M$ cannot be less than $\widetilde{\sigma}_E$ because it's impossible to show that the model is more accurate than the measurements against which it's compared, the following is produced:
+Using the pair of measured and predicted values with the known $\widetilde{\sigma}_E$, the expression on the right can be evaluated. Eq.~\ref{eq:least_sqrs} imposes a constraint on the experimental uncertainty value, $\widetilde{\sigma}_E$, and in combination with a second constraint that $\widetilde{\sigma}_M$ cannot be less than $\widetilde{\sigma}_E$ because it's impossible to show that the model is more accurate than the measurements against which it's compared, the following relationship is produced:
 \begin{equation}
 	\widetilde{\sigma}_E^2 \leq \frac{1}{2}\textrm{Var}(\ln(M/E))
 \end{equation}
@@ -109,14 +127,14 @@ Figure~\ref{fig:HGL_data} contains the HGL temperature derived from experimental
 \begin{figure}[!h]
 	\centering
 	\includegraphics[width=\columnwidth]{Figures/Plots/Validation/Temperature/Test_22_HGL}
-	\caption[Plots of measured and predicted hot gas layer temperatures during Test~22.]{Plots of measured and predicted hot gas layer temperatures on the first and second floors of the West Structure during Test~22.}
+	\caption[Plots of measured and predicted HGL temperatures during Test~22.]{Plots of measured and predicted HGL temperatures on the first and second floors of the West Structure during Test~22.}
 	\label{fig:HGL_data}
 \end{figure}
 
 \begin{figure}[!h]
 	\centering
 	\includegraphics[width=\columnwidth]{Figures/Plots/Validation/Temperature/loglog_HGL}
-	\caption{Summary of measured and predicted hot gas layer temperatures.}
+	\caption{Summary of measured and predicted HGL temperatures.}
 	\label{fig:loglog_HGL}
 \end{figure}
 
@@ -156,37 +174,37 @@ In addition to the HGL and ceiling jet temperatures, the measured and predicted 
 
 \clearpage
 \subsection{Gas Species Concentration}
-\subsubsection*{\textit{$O_2$} Concentration}
+\subsubsection*{\textit{O$_2$ Concentration}}
 The measured and predicted oxygen concentrations in the fire room and north room of the East Structure are plotted over the duration of Test~3 below in Figure~\ref{fig:Test3_O2}. Additionally, the summary log/log scatter plot of the predicted oxygen concentrations compared to the corresponding measured oxygen concentrations for the applicable time periods during Tests~5--6 and Tests~22--25 is shown in Figure~\ref{fig:loglog_O2}.
 \begin{figure}[!h]
 	\centering
 	\includegraphics[width=\columnwidth]{Figures/Plots/Validation/Gas_Concentration/Test_3_O2}
-	\caption[Plots of measured and predicted $O_2$ concentration during Test~3.]{Plots of measured and predicted $O_2$ concentrations in the fire room (black plots) and north room (red plots) of the East Structure during Test~3.}
+	\caption[Plots of measured and predicted O$_2$ concentration during Test~3.]{Plots of measured and predicted O$_2$ concentrations in the fire room (black plots) and north room (red plots) of the East Structure during Test~3.}
 	\label{fig:Test3_O2}
 \end{figure}
 
 \begin{figure}[!h]
 	\centering
 	\includegraphics[width=\columnwidth]{Figures/Plots/Validation/Gas_Concentration/loglog_O2}
-	\caption{Summary of measured and predicted $O_2$ concentrations.}
+	\caption{Summary of measured and predicted O$_2$ concentrations.}
 	\label{fig:loglog_O2}
 \end{figure}
 
 \clearpage
-\subsubsection*{\textit{$CO_2$} Concentration}
-The measured and predicted carbon dioxide concentrations in the fire room and north room of the East Structure are plotted over the duration of Test~3 below in Figure~\ref{fig:Test3_CO2}. The system used to measure the carbon dioxide concentrations could only measure carbon dioxide concentrations up to a maximum of 0.10. Thus, data pairs from the applicable time ranges of Tests~5--6 and Tests~22--25 for which the measured $CO_2$ volume fraction was 0.10 were not used to create the summary log/log scatter plot of the predicted $CO_2$ concentrations compared to the corresponding measured concentrations shown in Figure~\ref{fig:loglog_CO2} below.
+\subsubsection*{\textit{CO$_2$ Concentration}}
+The measured and predicted carbon dioxide concentrations in the fire room and north room of the East Structure are plotted over the duration of Test~3 below in Figure~\ref{fig:Test3_CO2}. The system used to measure the carbon dioxide concentrations could only measure carbon dioxide concentrations up to a maximum of 0.10. Thus, data pairs from the applicable time ranges of Tests~5--6 and Tests~22--25 for which the measured CO$_2$ volume fraction was 0.10 were not used to create the summary log/log scatter plot of the predicted CO$_2$ concentrations compared to the corresponding measured concentrations shown in Figure~\ref{fig:loglog_CO2} below.
 
 \begin{figure}[!h]
 	\centering
 	\includegraphics[width=\columnwidth]{Figures/Plots/Validation/Gas_Concentration/Test_3_CO2}
-	\caption[Plots of measured and predicted $CO_2$ concentration during Test~3.]{Plots of measured and predicted $CO_2$ concentration in the fire room (black plots) and north room (red plots) of the East Structure during Test~3.}
+	\caption[Plots of measured and predicted CO$_2$ concentration during Test~3.]{Plots of measured and predicted CO$_2$ concentration in the fire room (black plots) and north room (red plots) of the East Structure during Test~3.}
 	\label{fig:Test3_CO2}
 \end{figure}
 
 \begin{figure}[!h]
 	\centering
 	\includegraphics[width=\columnwidth]{Figures/Plots/Validation/Gas_Concentration/loglog_CO2}
-	\caption{Summary of measured and predicted $CO_2$ concentrations.}
+	\caption{Summary of measured and predicted CO$_2$ concentrations.}
 	\label{fig:loglog_CO2}
 \end{figure}
 
@@ -269,6 +287,6 @@ Heat Flux 			& & 0.98  & 0.11 & 0.15 & & 0.98 & 0.11 & 0.24 	\\
 
 Overall, the agreement between the FDS simulation data and experimental data for the considered gas burner experiments is consistent with the statistical values given by the FDS Validation Guide. For the HGL temperature, ceiling jet temperature, and heat flux, the model bias calculated for the gas burner simulations is equal to or better than (closer to the ideal value of 1) the overall model bias values given by the FDS Validation Guide. Additionally, the relative standard deviations of the experimental data and model data for these three quantities are equal to or less than (better than) the corresponding values for the same data types listed in the validation guide. 
 
-The $\delta$, $\sigma_E$, and $\sigma_M$ values produced by the gas burner model and experimental data for both the $O_2$ and $CO_2$ gas concentrations were very close to the values documented in the FDS Validation Guide. The $\sigma_E$ values are equal in both comparisons and the $\sigma_M$ values are greater in magnitude by only 0.01 and 0.02 compared to the validation guide values for oxygen and carbon dioxide concentration, respectively. Finally, based on the data from gas burner simulations, the oxygen concentration model bias is worse (further from the ideal value of 1) by 7~\% and carbon dioxide concentration model bias is worse by 4~\% compared to the documented values in the FDS Validation Guide.
+The $\delta$, $\sigma_E$, and $\sigma_M$ values produced by the gas burner model and experimental data for both the O$_2$ and CO$_2$ gas concentrations were very close to the values documented in the FDS Validation Guide. The $\sigma_E$ values are equal in both comparisons and the $\sigma_M$ values are greater in magnitude by only 0.01 and 0.02 compared to the validation guide values for oxygen and carbon dioxide concentration, respectively. Finally, based on the data from gas burner simulations, the oxygen concentration model bias is worse (further from the ideal value of 1) by 7~\% and carbon dioxide concentration model bias is worse by 4~\% compared to the documented values in the FDS Validation Guide.
 
-The most significant difference between the documented values and values from the gas burner models occur in the gas velocity comparison, in which $\sigma_M$ was calculated as being greater than the $\sigma_M$ from the validation guide by a value 0.18. This discrepancy may exist for a few of reasons. First, gas velocity was one of the quantities with the highest uncertainty associated with the experimental measurements. Also, as previously mentioned, the experiments were conducted outdoors, so environmental conditions may have affected the measurements, even though only data from BDPs that were fully inside the structures were considered in an attempt to limit such effect. All the data used to calculate the $\delta$, $\sigma_E$, and $\sigma_M$ values in the validation guide correspond to experiments that were  conducted in an indoor laboratory setting, which could explain the significantly smaller model relative standard deviation. Finally, due to the nature of the fire environment at the time of the measurements, it's possible that turbulent flow was occurring through the vents (especially the roof vent in Tests~5 and 6) at the time of the measurements. CFD models that use Large-Eddy Simulation (LES), the default mode of operation for FDS, tend to be limited more in terms of accurately measuring turbulent flow than compared to measurements during other conditions.
+The most significant difference between the documented values and values from the gas burner models occur in the gas velocity comparison, in which $\sigma_M$ was calculated as being 0.18 larger than the $\sigma_M$ from the validation guide. This discrepancy may exist for a couple reasons. First, gas velocity was associated with the highest measurement uncertainty of all experimental measurements. Also, as previously mentioned, the experiments were conducted outdoors, so environmental conditions may have affected the measurements, even though only data from BDPs that were fully inside the structures were considered in an attempt to limit such effects. All the data used to calculate the $\delta$, $\sigma_E$, and $\sigma_M$ values in the validation guide correspond to experiments that were conducted in an indoor laboratory setting, which could explain the significantly smaller model relative standard deviation.

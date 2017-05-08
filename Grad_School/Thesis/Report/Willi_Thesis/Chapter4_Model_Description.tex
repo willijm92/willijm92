@@ -19,16 +19,16 @@
 
 \chapter{Numerical Model Description}
 % Brief summary of FDS
-Fire Dynamics Simulator (version 6.5.3)~\cite{FDS_Users_Guide}, a CFD model of thermally-driven fluid flow that is developed and maintained by NIST, was used to model the burner experiments described in Chapter~\ref{chap:exp_procedure}. FDS numerically solves a form of the Navier-Stokes equations for low-speed ($Ma < 0.3$), fire-driven flows with an emphasis on smoke and heat transport from fires. The FDS Technical Reference Guide~\cite{FDS_Tech_Guide} provides a complete description of the model, including the formulation of the equations and numerical algorithm utilized by the software. FDS is mathematically verified~\cite{FDS_Verification_Guide} and validated against a continually growing database of experimental data from different fire scenarios~\cite{FDS_Validation_Guide}. 
+Fire Dynamics Simulator (version 6.5.3)~\cite{FDS_Users_Guide}, a CFD code designed to model thermally-driven fluid flow that is developed and maintained by NIST, was used to model the burner experiments described in Chapter~\ref{chap:exp_procedure}. FDS numerically solves a form of the Navier-Stokes equations for low-speed ($Ma < 0.3$), fire-driven flows with an emphasis on smoke and heat transport from fires. The FDS Technical Reference Guide~\cite{FDS_Tech_Guide} provides a complete description of the model, including the formulation of the equations and numerical algorithm utilized by the software. FDS is mathematically verified~\cite{FDS_Verification_Guide} and validated against a continually growing database of experimental data from different fire scenarios~\cite{FDS_Validation_Guide}. 
 
 % Computational domain description
-FDS performs calculations within a computational domain that is composed of rectilinear volumes called meshes. Each mesh is divided into three-dimensional rectangular computational cells. Using the laws of mass, momentum, and energy conservation, FDS calculates the gas density, velocity, temperature, pressure, and species concentration within each grid cell and determines the generation and movement of fire gases within the domain. In general, the number of cells within each mesh (i.e., the grid cell size) determines the resolution of the mesh: the smaller the size of the cells, the higher the resolution of the simulation. However, increasing the resolution of a simulation increases the need for more computational resources and produces a longer simulation run time. Thus, it's critical to determine a proper grid cell size for the meshes within an FDS computational domain based on available resources and desired level of model fidelity. In order to select an appropriate cell size for the simulations of the gas burner experiments, a mesh sensitivity analysis, described in Section~\ref{subsec:mesh}, was performed.  
+FDS performs calculations within a computational domain that is composed of rectilinear volumes called meshes. Each mesh is divided into three-dimensional rectangular computational cells. Using the laws of mass, momentum, and energy conservation, FDS calculates the gas density, velocity, temperature, pressure, and species concentration within each grid cell and determines the generation and movement of fire gases within the domain. In general, the number of cells within each mesh (i.e., the grid cell size) determines the resolution of the mesh: the smaller the size of the cells, the higher the resolution of the simulation and the higher the accuracy of the model. However, increasing the resolution of a simulation increases the need for more computational resources and produces a longer simulation run time. Thus, it's critical to determine a proper grid cell size for the meshes within an FDS computational domain based on available resources and desired level of model fidelity. To select an appropriate cell size for the simulations of the gas burner experiments, a mesh sensitivity analysis, described in Section~\ref{subsec:mesh}, was performed.  
 
 % List of other prescribed inputs
 In addition to defining the meshes and cells within the computational domain, other types of input data must be known and considered to properly formulate a fire model. Key input parameters that were specified within the FDS input files and additional characteristics of the model setup are described throughout the sections of this chapter.
 
 \section{Computational Domain}
-The computational domain for the East Structure simulations was set to span 14~m in the $x$ direction, 8~m in the $y$ direction, and 3~m in the $z$ direction, and the computational domain for the West Structure simulations spanned 14~m in the $x$ direction, 8~m in the $y$ direction, and 5.4~m in the $z$ direction. Each structure was centered between the $x$ and $y$ boundaries of its respective domain, and the ground of the first floor was set at $z=0$~m. The structures were modeled based on the dimensions shown in the floor plan drawings presented in Figures~\ref{fig:east_dimensioned_plan} and \ref{fig:west_dimensioned_plan} of Chapter~\ref{chap:exp_setup}. 
+The computational domain was set to extend beyond the structure to properly resolve the flow from the interior to the exterior of the structure. The computational domain for the East Structure simulations spanned 14~m in the $x$ direction, 8~m in the $y$ direction, and 3~m in the $z$ direction, and the computational domain for the West Structure simulations spanned 14~m in the $x$ direction, 8~m in the $y$ direction, and 5.4~m in the $z$ direction. Each structure was centered between the $x$ and $y$ boundaries of its respective domain, and the ground of the first floor was set at $z=0$~m. The structures were modeled based on the dimensions shown in the floor plan drawings presented in Figures~\ref{fig:east_dimensioned_plan} and \ref{fig:west_dimensioned_plan} of Chapter~\ref{chap:exp_setup}. 
 
 The entire computational domain for each simulation was divided into eight different meshes to utilize the Message-Passing Interface (MPI) feature of FDS that allows multiple computers, or multiple cores on one computer, to run a multi-mesh FDS job with each mesh as its own process. All simulations were executed by utilizing MPI parallel processing on a multi-processor Linux machine.
 
@@ -43,7 +43,7 @@ where $\dot{Q}$ is the total heat release rate of the fire (kW), $\delta x$ is t
 
 To determine the grid cell size to prescribe the meshes within the model simulations, a mesh sensitivity study was performed for the Test~4 simulation in the East Structure and the Test~25 simulation in the West Structure. Tests~4 and 25 were selected for the analysis because they have shorter durations compared to other East Structure and West Structure experiments. Three different grid cell sizes corresponding to the coarse, medium, and fine meshes were used in the mesh sensitivity study: 14~cm, 10~cm, and 5~cm for the East Structure and 7~cm for the West Structure, respectively. These corresponded to RI values ranging from 5--7 for the coarse grid, 8--11 for the medium grid, and 15--20 for the fine grid. Previous FDS validation work from the U.S. Nuclear Regulatory Commission suggests that RI values from 4 to 16 generated adequate results in terms of engineering calculations~\cite{NUREG_1824}.
 
-The characteristic fire diameter (and thus, the RI values) were similar for all nine FDS simulations, so the results from the mesh sensitivity analysis of one simulation was used to determine and justify the grid cell size for all burner experiment simulations conducted within the same structure. From the analysis, it was determined that a cell size of 10~cm (medium mesh) was appropriate for all nine simulations. This cell size results in a domain with 336,000 computational grid cells for the East Structure and a domain with 604,800 computational grid cells for the West Structure. The results of the sensitivity study are presented and discussed in Section~\ref{sec:mesh_studies} of Chapter~\ref{chap:results_disc}.
+One limitation with using the RI value to determine the appropriate grid cell size is that it does not consider any characteristic length scale related to the scenario being modeled. The characteristic fire diameter (and thus, the RI values) and length scales were similar for all nine FDS simulations, so the results from the mesh sensitivity analysis of one simulation was used to determine and justify the grid cell size for all burner experiment simulations conducted within the same structure. From the analysis, it was determined that a cell size of 10~cm (medium mesh) was appropriate for all nine simulations. This cell size results in a domain with 336,000 computational grid cells for the East Structure and a domain with 604,800 computational grid cells for the West Structure. The results of the sensitivity study are presented and discussed in Section~\ref{sec:mesh_studies} of Chapter~\ref{chap:results_disc}.
 
 As previously mentioned, the computational domain was divided into eight equally sized meshes. The first mesh was defined by the \verb|MESH| namelist group and was assigned a \verb|MULT_ID| quantity corresponding to a multiplier utility defined by the \verb|MULT| namelist group. For example, the mesh in the Test~2 input file was defined by the following
 \begin{quote}
@@ -71,7 +71,7 @@ where $i$ and $j$ are integers.
 
 \section{Source Fire Characterization}
 % Burner/fire definition details "held at a constant temperature of 500~$^\circ$C"
-Each propane burner in the simulations was modeled as having steel sides and a 0.6~m~x~0.6~m surface located 0.1~m above the ground with a specified mass flux (kg/(m$^2$s)) of propane in the positive $z$ direction corresponding to the burner's heat release rate. In order to provide an example of the exact lines that were included in the input files to define the burners and propane fires in this manner, the following lines defined the surfaces with specified propane mass fluxes corresponding to the heat release rate of each burner in the Test~2 FDS input file: 
+Each propane burner in the simulations was modeled as having steel sides and a 0.6~m~x~0.6~m surface located 0.1~m above the ground with a specified mass flux (kg/(m$^2$s)) of propane in the positive $z$ direction corresponding to the burner's heat release rate. To provide an example, the following lines defined the surfaces with specified propane mass fluxes corresponding to the heat release rate of each burner in the Test~2 FDS input file: 
 \begin{quote}
 \begin{verbatim}
 &SURF ID='BURNER 1', MASS_FLUX(1)=0.0264, SPEC_ID(1)='PROPANE', 
@@ -103,7 +103,7 @@ Additionally, the following lines were used in the Test~2 input file to define e
 \end{verbatim}
 \end{quote}
 
-The heat release rates listed in Table~\ref{table:exp_summary} from Chapter~\ref{chap:exp_procedure} were used to determine the values of propane mass flux to prescribe to the burners defined in the FDS input files for Tests~5--6 and Tests~22--25. The propane mass flux, $\dot{m}_{C_3H_8}''$, was calculated using the equation
+The heat release rates listed in Table~\ref{table:exp_summary} from Chapter~\ref{chap:exp_procedure} were used to determine the values of propane mass flux to prescribe to the burners defined in the FDS input files. The propane mass flux, $\dot{m}_{C_3H_8}''$, was calculated using the equation
 \begin{equation}
   \dot{m}_{C_3H_8}''=\frac{\dot{Q}}{A\Delta h_c}
 \end{equation}
@@ -114,39 +114,8 @@ The heat release rates listed in Table~\ref{table:exp_summary} from Chapter~\ref
 % 2         0.0264            0.0246            0.006
 % 3         0.0312            0.0252            0.0102
 % 4         0.0330            0.0252            0.0096
-% in which $\dot{Q}$ is the burner heat release rate; $A$ is the area of the top surface of the burner, 0.36~m$^2$ for all burners; and $\Delta h_c$ is the effective heat of combustion of the fuel (propane), which was taken to be 46334.6~kJ/kg [REF?].
-in which $\dot{Q}$ is the burner heat release rate, $A$ is the area of the top surface of the burner, and $\Delta h_c$ is the effective heat of combustion of the fuel (propane).
+in which $\dot{Q}$ is the burner heat release rate; $A$ is the area of the top surface of the burner, 0.36~m$^2$ for all burners; and $\Delta h_c$ is the effective heat of combustion of the fuel (propane), which was taken to be 46,335~kJ/kg~\cite{Poling:1}.
 
-As mentioned in Chapter~\ref{chap:exp_procedure}, the rate of propane flow to the burners was not able to be accurately measured during Tests~2--4. Instead, the heat release rates prescribed to the simulations of Tests~2--4 during the periods in which one, two, and three burners were ignited were estimated using the hot gas layer (HGL) temperature of the fire room during each period in conjunction with the following correlation derived by McCaffrey, Quintiere, and Harkleroad (MQH correlation) for compartment fires~\cite{McCaffery:1}: 
-\begin{equation}
-\label{eq:MQH}
-\begin{split}
-  T_g &= 6.85 \left( \frac{\dot{Q}^2}{A_0 \sqrt{H_0} h_k A_T}\right)^{1/3}+T_{\infty} \\
-  &\Rightarrow~\dot{Q} = \left[A_0  \sqrt{H_0} h_k A_T \left( \frac{T_g-T_{\infty}}{6.85}\right)^3\right]^{1/2}
-\end{split}
-\end{equation}
-where $\dot{Q}$ is the heat release rate of the fire (kW), $A_0$ is the area of the compartment opening (m$^2$), $H_0$ is the height of the compartment opening (m), $h_k$ is the effective heat transfer coefficient (kW/(m$^2$K)), $A_T$ is the total area of the compartment enclosing surfaces (m$^2$), $T_g$ is the temperature of the upper gas layer (K), and $T_{\infty}$ is the ambient temperature (K). The HGL temperatures of the fire room were calculated using the experimental data from the thermocouple arrays in the fire room (A1 and A2). The exact methodology of obtaining the hot gas layer temperature from the thermocouple data is outlined in Chapter~\ref{chap:results_disc}. 
-
-% calculated as $\sqrt{k\rho c/t}$ $A_0$ as the area of the open doorway in the fire room, 1.8~m$^2$; $H_0$ as the doorway height, 2.0~m; 
-Using Equation~\ref{eq:MQH}, the heat release rates for the periods with one, two, and three burners ignited were estimated and used to determine the propane mass flux value of each burner surface in the FDS input files for Tests~2--4. Table~\ref{table:test_over} lists the heat release rates obtained from this method, rounded to the nearest 10~kW.
-
-\begin{table}[!ht]
-% \renewcommand{\baselinestretch}{1}
-\caption[Tests~2--4 Estimated Heat Release Rates Using MQH Correlation.]{Tests~2--4 Heat Release Rates (kW) Estimated using the Average Hot Gas Layer Temperature and MQH Correlation.}
-\begin{center}
-\begin{tabular}{cccc}
-\toprule
-\textbf{Test~\#} & \textbf{1 Burner Ignited} & \textbf{2 Burners Ignited} & \textbf{3 Burners Ignited}  \\
-\midrule
-2 & 440 & 850 & 950 \\
-3 & 520 & 940 & 1110 \\
-4 & 550 & 970 & 1130 \\
-\hline
-\end{tabular}
-\end{center}
-\label{table:test_over}
-\end{table}
-% \renewcommand{\baselinestretch}{2}
 % Details about combustion reactions
 The reaction mechanisms for combustion in all simulations were modeled using the default mixing-controlled, simple chemistry model (reaction rate is infinite and limited only by species concentrations) and were specified via the following code:
 \begin{quote}
@@ -173,8 +142,8 @@ Additionally, the production of carbon dioxide was tracked via
 \end{verbatim}
 \end{quote}
 and nitrogen was set as the background species. Note, FDS has built-in properties for a number of different fuels, including \verb|PROPANE| and \verb|CARBON MONOXIDE|. Therefore, it was not necessary to explicitly list thermophysical properties for the prescribed fuels. Finally, because of the presence of multiple chemical reactions, gas phase combustion was eliminated by setting \verb|SUPPRESSION=.FALSE.| on the \verb|MISC| line.
-
 \FloatBarrier
+
 \section{Additional Input Parameters}
 In addition to those already presented in the previous sections, a variety of other parameters were specified within the simulation input files. These include the ambient temperature, timing information, thermophysical properties of materials that weren't already predefined by FDS, leakage associated with the structure, and the different devices to model the various types of instrumentation used during the physical experiments.
 
@@ -227,6 +196,23 @@ Fiber Cement 	     &       \cite{Durock:specs}            &		      1.0     		   
 \end{center}
 \label{table:material_props}
 \end{table}
+% \begin{table}[!ht]
+% \cprotect\caption{Various Materials Defined Within Each FDS Input File and the Corresponding \verb|MATL| Namelist Group Parameter Values.}
+% \begin{center}
+% \begin{tabular}{cccc}
+% \toprule
+% \textbf{Material}  & \verb|SPECIFIC_HEAT|          &  \verb|CONDUCTIVITY|        & \verb|DENSITY|  \\
+% \verb|ID|          &   \textbf{(kJ/(kg$\cdot$K))}  &   \textbf{(W/(m$\cdot$K))}  &  \textbf{(kg/m$^3$)}    \\
+% \midrule
+% Steel$^{[12]}$              &         0.48                  &      62.0                   &    7850       \\
+% Gypsum$^{[12]}$             &         0.90                  &      0.16                   &     770       \\
+% Concrete$^{[12]}$           &         1.04                  &      1.75                   &    2200       \\
+% Fiber Cement$^{[13]}$       &         1.0                   &      0.15                   &    1300       \\
+% \bottomrule
+% \end{tabular}
+% \end{center}
+% \label{table:material_props}
+% \end{table}
 \FloatBarrier
 The materials in Table~\ref{table:material_props} were explicitly specified within the FDS input files to ensure that the solid boundary surfaces throughout the model were properly defined as described in Chapter~\ref{chap:exp_setup}. For example, based on the description of the exterior walls from Chapter~\ref{chap:exp_setup}:  
 \begin{quote}
@@ -248,7 +234,6 @@ To account for the structure leakage described in Chapter~\ref{chap:exp_setup}, 
 
 % Instrumentation and other devices
 Various instrumentation devices can be modeled within FDS through the \verb|DEVC| namelist group. Different devices were specified in the FDS input files at the sensor locations described in Chapter~\ref{chap:exp_setup}. The \verb|QUANTITY| parameter within the \verb|DEVC| namelist group was set based on the type of sensor being modeled. Table~\ref{table:FDS_sensor_info} lists each type of sensor that was modeled, its corresponding \verb|QUANTITY| parameter, and the combined uncertainty associated with the \verb|QUANTITY| parameter as given by the FDS Validation Guide.  
-
 \begin{table}[!ht]
 \cprotect\caption{Instrumentation Specified within FDS Input File and Corresponding \verb|DEVC| Namelist Group Properties.}
 \begin{center}
@@ -268,5 +253,4 @@ Heat Flux Gauge         & \verb|'GAUGE HEAT FLUX'|    &     11~\%     \\
 \label{table:FDS_sensor_info}
 \end{table}
 \FloatBarrier
-% Finally, to model the PPV fan that was used after the burners were extinguished in Tests~2--4 and during Tests~22--25, an obstruction was created at the fan location and a surface was assigned to the front of the fan with a specified velocity normal to the side of the structure that was controlled by a timer and ramp, similar to the vent openings.  
 

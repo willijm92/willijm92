@@ -58,14 +58,15 @@ plot_settings = pd.read_csv(plot_settings_file)
 save_dir = '../Plots/Validation/'
 
 # Specify plots to generate
-plot_CO2     = False
-plot_O2      = False
+plot_CO2     = True
+plot_O2      = True
 plot_TC      = False
-plot_HF      = True
-plot_BDP     = True
+plot_HF      = False
+plot_BDP     = False
 plot_HGL     = False
 plot_cjetTC  = False
 
+# currently commented out of code
 plot_CO      = False
 plot_O2_CO2  = False
 
@@ -108,11 +109,10 @@ def setup_fig(color_list, y_label, x_max):
 	plt.ylabel(y_label, fontsize=20)
 	ax1.set_xlim(0,x_max)
 	plt.xlabel('Time (s)', fontsize=20)
-	# presentation plots
-	fig.set_size_inches(10, 7)
-	# fig.set_size_inches(10, 8)
 	plt.xticks(fontsize=16)
 	plt.yticks(fontsize=16)
+	# fig.set_size_inches(10, 7) 	# presentation plot size
+	fig.set_size_inches(10, 8) 		# report plot size
 
 	return ax1
 
@@ -135,6 +135,7 @@ if plot_HGL:
 
 # font size for presentation plots
 leg_font = 12
+event_font = 11
 
 # These are the "Tableau 20" colors as RGB.
 tableau20 = [(31, 119, 180), (174, 199, 232), (255, 127, 14), (255, 187, 120),
@@ -187,20 +188,6 @@ for f in os.listdir(exp_data_dir):
 
 				FDS_data = FDS_data.set_index('Time')
 
-				# # Load original FDS data file (if applicable)
-				# if orig_FDS_cases:
-				# 	if len(test_name) < 7:
-				# 		orig_FDS_data_file = test_name[:5]+'0'+test_name[5]+'_devc.csv'
-				# 	else:
-				# 		orig_FDS_data_file = test_name+'_devc.csv'
-
-				# 	try:
-				# 		orig_FDS_data = pd.read_csv(orig_FDS_data_dir+test_name[:-12]+'/'+orig_FDS_data_file,skiprows=1)
-				# 	except:
-				# 		continue
-
-				# 	orig_FDS_data = orig_FDS_data.set_index('Time')
-
 				# Load experimental data file
 				exp_data = pd.read_csv(exp_data_dir + f)
 				exp_data = exp_data.set_index('Time')
@@ -240,6 +227,7 @@ for f in os.listdir(exp_data_dir):
 					negValues = False   # some sensor channels are backwards, will plot neg of data file values if this is the case
 					split_plot = False 	# split for TC and BDP plots
 					customize = False
+					custom_leg_loc = False # use bbox_to_anchor to set legend
 
 					i = 0
 					for sensor_group in custom_group_ls:
@@ -275,7 +263,6 @@ for f in os.listdir(exp_data_dir):
 						if test_name == 'Test_5':
 							ncols_leg = 2
 							legend_loc = 'upper left'
-
 						elif test_name == 'Test_25':
 							ncols_leg = 2
 							legend_loc = 'lower center'
@@ -353,7 +340,15 @@ for f in os.listdir(exp_data_dir):
 						y_label = 'Volume Fraction'
 						exp_error = 0.12
 						FDS_error = 0.08
-						legend_loc = 'upper right'
+						if test_name == 'Test_5':
+							legend_loc = 'upper right'
+							ncols_leg = 2
+						elif test_name == 'Test_6':
+							legend_loc = 'upper right'
+							ncols_leg = 1			
+						else:
+							legend_loc = 'center right'
+							ncols_leg = 2	
 						err_colors = cycle(plot_colors)
 
 					elif column[:3] == 'O2_':
@@ -364,7 +359,16 @@ for f in os.listdir(exp_data_dir):
 						y_label = 'Volume Fraction'
 						exp_error = 0.12
 						FDS_error = 0.08
-						legend_loc = 'lower right'
+						if test_name == 'Test_5':
+							custom_leg_loc = True
+							legend_loc = (0.5,0.25)
+							ncols_leg = 1
+						elif test_name == 'Test_6':
+							legend_loc = 'lower right'
+							ncols_leg = 1	
+						else:
+							legend_loc = 'center right'
+							ncols_leg = 2	
 						err_colors = cycle(plot_colors)
 					
 					if split_plot:
@@ -435,7 +439,7 @@ for f in os.listdir(exp_data_dir):
 						[plt.axvline(_x, color='0.4', lw=1) for _x in events.index.values]
 						ax3.set_xticks(events.index.values)
 						plt.setp(plt.xticks()[1], rotation=45)
-						ax3.set_xticklabels(events.values, fontsize=10, ha='left')
+						ax3.set_xticklabels(events.values, fontsize=event_font, ha='left')
 						plt.xlim([0, x_max])
 
 						if legend:
@@ -502,7 +506,7 @@ for f in os.listdir(exp_data_dir):
 						[plt.axvline(_x, color='0.4', lw=1) for _x in events.index.values]
 						ax3.set_xticks(events.index.values)
 						plt.setp(plt.xticks()[1], rotation=45)
-						ax3.set_xticklabels(events.values, fontsize=10, ha='left')
+						ax3.set_xticklabels(events.values, fontsize=event_font, ha='left')
 						plt.xlim([0, x_max])
 
 						if legend:              
@@ -522,12 +526,6 @@ for f in os.listdir(exp_data_dir):
 
 					else:
 						ax1 = setup_fig(plot_colors,y_label,x_max)
-						# if y_label == 'Volume Fraction':
-						# 	if group != 'CO2':
-						# 		ax1.set_ylim(0,0.25)
-							# else:
-							# 	ax1.set_ylim(0,0.15)
-
 						# Plot data for each channel in sensor group
 						for name in channel_ls:
 							# Plot exp data
@@ -536,47 +534,97 @@ for f in os.listdir(exp_data_dir):
 								y = exp_data[name].values.astype(float)*-1.
 							else:
 								y = exp_data[name].values.astype(float)
+								y = y[~np.isnan(y)]
+								x = x[:len(y)]
 
 							if name[:2] != 'O2':
-								exp_max = np.max(y[:100])
-								error_index = np.argmax(y[:100])*10
+								exp_max = np.max(y)
+								error_index = np.argmax(y)*10
 							else:
-							 	exp_max = np.min(y)
-							 	error_index = np.argmin(y)*10
+								exp_max = np.min(y)
+								error_index = np.argmin(y)*10
+								if test_name == 'Test_5':
+									if name[-1] == 'A':
+										exp_max = np.max(y[15:50])
+										error_index = np.argmax(y[15:50])*10+150
+								elif test_name == 'Test_3':
+									if name[-1] == 'A':
+										exp_max = np.max(y[70:80])
+										error_index = np.argmax(y[70:80])*10+700
+									else:
+										exp_max = np.max(y[50:60])
+										error_index = np.argmax(y[50:60])*10+500
+								elif test_name == 'Test_6':
+									if name[-1] == 'A':
+										exp_max = np.max(y[75:82])
+										error_index = np.argmax(y[75:82])*10+750
+								elif test_name == 'Test_4':
+									exp_max = np.max(y[60:75])
+									error_index = np.argmax(y[60:75])*10+600
+								elif test_name == 'Test_23':
+									if name[-1] == 'A':
+										exp_max = np.max(y[20:32])
+										error_index = np.argmax(y[20:32])*10+200
+								elif test_name == 'Test_2':
+									if name[-1] == 'A':
+										exp_max = np.max(y[70:78])
+										error_index = np.argmax(y[70:78])*10+700
+									else:
+										exp_max = np.max(y[50:53])
+										error_index = np.argmax(y[50:53])*10+500										
 							plt.plot(x, y, ls='-', lw=2, label='Exp '+name)
-							plt.errorbar(error_index, exp_max, yerr=exp_max*exp_error, c=next(err_colors), fmt='o', ms=4, capthick=1.25,lw=1.25, capsize=8)
+							plt.errorbar(error_index, exp_max, yerr=exp_max*exp_error, c=next(err_colors), fmt='o', ms=4, ls='-',capthick=1.25,lw=1.25, capsize=8)
 
 							# Plot FDS Data
-							x = FDS_data.index.values.astype(float)
 							y = FDS_data[name].values.astype(float)
+							y = y[~np.isnan(y)]
+							x = FDS_data.index.values.astype(float)[:len(y)]
 							if name[:2] != 'O2':
-								FDS_max = np.max(y[:200])
-								error_index = np.argmax(y[:200])*10
+								FDS_max = np.max(y)
+								error_index = np.argmax(y)*10
+								if group == 'CO2':
+									if test_name == 'Test_5':
+										FDS_max = np.max(y[:175])
+										error_index = np.argmax(y[:175])*10
+									else:
+										FDS_max = np.max(y)
+										error_index = np.argmax(y)*10
 							else:
 								FDS_max = np.min(y)
 								error_index = np.argmin(y)*10
+								if test_name == 'Test_5':
+									if name[-1] == 'A':
+										FDS_max = np.max(y[15:50])
+										error_index = np.argmax(y[15:50])*10+150
+								elif test_name == 'Test_3':
+									if name[-1] == 'A':
+										FDS_max = np.max(y[70:80])
+										error_index = np.argmax(y[70:80])*10+700
+									else:
+										FDS_max = np.max(y[50:60])
+										error_index = np.argmax(y[50:60])*10+500
+								elif test_name == 'Test_6':
+									if name[-1] == 'A':
+										FDS_max = np.max(y[75:82])
+										error_index = np.argmax(y[75:82])*10+750
+								elif test_name == 'Test_4':
+									FDS_max = np.max(y[60:75])
+									error_index = np.argmax(y[60:75])*10+600
+								elif test_name == 'Test_23':
+									if name[-1] == 'A':
+										FDS_max = np.max(y[20:32])
+										error_index = np.argmax(y[20:32])*10+200
+								elif test_name == 'Test_2':
+									if name[-1] == 'A':
+										FDS_max = np.max(y[70:78])
+										error_index = np.argmax(y[70:78])*10+700	
+									else:
+										FDS_max = np.max(y[53:56])
+										error_index = np.argmax(y[53:56])*10+530								
 							plt.plot(x, y, ls='--', lw=2, label='FDS '+name)
 							plt.errorbar(error_index, FDS_max, yerr=FDS_max*FDS_error, c=next(err_colors), fmt='o', ms=4, ls='--',capthick=1.25,lw=1.25, capsize=8)
 							plotted_channels.append(name)
 						print ('    Plotted '+group+' Data')
-
-						# err_colors = cycle(plot_colors)
-						# line_colors = cycle(plot_colors)
-
-						 
-						# # Plot FDS data for each channel in sensor group          
-						# for name in channel_ls:
-						# 	x = FDS_data.index.values.astype(float)
-						# 	y = FDS_data[name].values.astype(float)
-						# 	if name[:2] != 'O2':
-						# 		FDS_max = np.max(y[:200])
-						# 		error_index = np.argmax(y[:200])*10
-						# 	else:
-						# 		FDS_max = np.min(y)
-						# 		error_index = np.argmin(y)*10
-						# 	plt.plot(x, y, ls='--', lw=2, label='FDS '+name)
-						# 	plt.errorbar(error_index, FDS_max, yerr=FDS_max*FDS_error, c=next(err_colors), fmt='o', ms=4, ls='--',capthick=1.25,lw=1.25, capsize=8)
-						# print ('    Plotted ' + group + ' FDS Data')
 
 						plt.grid(color='0.75', linestyle='-.', linewidth=1)
 
@@ -590,18 +638,21 @@ for f in os.listdir(exp_data_dir):
 						events = events[~events.str.startswith('#')]
 						[plt.axvline(_x, color='0.4', lw=1) for _x in events.index.values]
 						ax3.set_xticks(events.index.values)
-						plt.setp(plt.xticks()[1], rotation=45)
-						ax3.set_xticklabels(events.values, fontsize=10, ha='left')
+						if len(test_name) < 7:
+							plt.setp(plt.xticks()[1], rotation=60)
+						else:
+							plt.setp(plt.xticks()[1], rotation=45)
+						ax3.set_xticklabels(events.values, fontsize=event_font, ha='left')
 						plt.xlim([0, x_max])
 						# Increase figure size for plot labels at top
 						# fig.set_size_inches(10, 7)
+						if group == 'O2':
+							plt.ylim([0, 0.23])
 
-						if legend:
-							if customize:
-								if custom_loc != 'None':
-									legend_loc = custom_loc
-								ncols_leg = int(custom_ncols)              
-							handles1, labels1 = ax1.get_legend_handles_labels()
+						handles1, labels1 = ax1.get_legend_handles_labels()
+						if custom_leg_loc:             
+							plt.legend(handles1, labels1, bbox_to_anchor=legend_loc, ncol=ncols_leg, fontsize=leg_font, handlelength=3)
+						else:
 							plt.legend(handles1, labels1, loc=legend_loc, ncol=ncols_leg, fontsize=leg_font, handlelength=3)
 
 						# Save plot to file
@@ -632,6 +683,7 @@ for f in os.listdir(exp_data_dir):
 				err_colors = cycle(plot_colors)
 
 				for i in range(0,channel_array.shape[0]):
+					custom_leg_loc = False 	# use bbox_to_anchor to place legend
 					# Setup figure to plot set of TCs
 					ax1 = setup_fig(plot_colors,r'Temperature ($^\circ$C)',x_max)
 					for j in range(0, channel_array.shape[1]):
@@ -667,8 +719,13 @@ for f in os.listdir(exp_data_dir):
 					events = events[~events.str.startswith('#')]
 					[plt.axvline(_x, color='0.4', lw=1) for _x in events.index.values]
 					ax3.set_xticks(events.index.values)
-					plt.setp(plt.xticks()[1], rotation=45)
-					ax3.set_xticklabels(events.values, fontsize=10, ha='left')
+					if len(test_name) < 7:
+						plt.setp(plt.xticks()[1], rotation=60)
+					elif test_name == 'Test_22':
+						plt.setp(plt.xticks()[1], rotation=55)
+					else:
+						plt.setp(plt.xticks()[1], rotation=45)
+					ax3.set_xticklabels(events.values, fontsize=event_font, ha='left')
 					plt.xlim([0, x_max])
 
 					if test_name == 'Test_6':
@@ -684,10 +741,16 @@ for f in os.listdir(exp_data_dir):
 						else:
 							ncols_leg = 1
 							legend_loc = 'upper left'
-
 					else:
-						ncols_leg = 1
-						legend_loc = 'upper right'
+						if len(test_name) < 7:
+							ncols_leg = 1
+							legend_loc = 'upper right'
+						else:
+							ncols_leg = 3 
+							if i > 0:
+								legend_loc = 'lower center'
+							else:
+								legend_loc = 'lower left'							
 
 					handles1, labels1 = ax1.get_legend_handles_labels()
 					plt.legend(handles1, labels1, loc=legend_loc, ncol=ncols_leg, fontsize=leg_font, handlelength=3)
@@ -858,8 +921,11 @@ for f in os.listdir(exp_data_dir):
 			events = events[~events.str.startswith('#')]
 			[plt.axvline(_x, color='0.4', lw=1) for _x in events.index.values]
 			ax3.set_xticks(events.index.values)
-			plt.setp(plt.xticks()[1], rotation=45)
-			ax3.set_xticklabels(events.values, fontsize=10, ha='left')
+			if len(test_name) < 7:
+				plt.setp(plt.xticks()[1], rotation=60)
+			else:
+				plt.setp(plt.xticks()[1], rotation=45)
+			ax3.set_xticklabels(events.values, fontsize=event_font, ha='left')
 			plt.xlim([0, x_max])
 			ax1.set_ylim([0,overall_max*1.05])
 
